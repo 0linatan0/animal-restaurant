@@ -41,17 +41,18 @@ export function animalArt(role = 'rabbit', cls = '', waving = false) {
     <path d="M79 193 L97 209 L160 209 L180 192 L188 274 Q130 288 72 274Z" fill="${bear ? '#738E6A' : '#E9B952'}"/>
     <path d="M103 239 Q130 252 157 239 L155 260 Q130 270 105 260Z" fill="${bear ? '#9EB28B' : '#F5D881'}"/>
     <path d="M55 230 Q22 ${waving ? '157 24 149' : '219 33 236'} Q${waving ? '39 136' : '30 257'} 65 255" fill="${fur}" stroke="${edge}" stroke-width="4"/>
-    <path d="M196 230 Q225 209 230 234 Q235 253 201 255" fill="${fur}" stroke="${edge}" stroke-width="4"/>
+    <path class="animal-arm" d="M196 230 Q225 209 230 234 Q235 253 201 255" fill="${fur}" stroke="${edge}" stroke-width="4"/>
     <path d="M46 126 Q49 68 128 70 Q207 70 215 129 Q224 196 132 207 Q40 201 46 126Z" fill="${fur}" stroke="${edge}" stroke-width="4"/>
     ${bear ? '<ellipse cx="131" cy="160" rx="37" ry="28" fill="#E7BC8D"/>' : ''}
     <ellipse cx="73" cy="154" rx="15" ry="9" fill="#EAA68B" opacity=".7"/><ellipse cx="187" cy="154" rx="15" ry="9" fill="#EAA68B" opacity=".7"/>
     <ellipse cx="96" cy="133" rx="5" ry="7" fill="#574533"/><ellipse cx="165" cy="133" rx="5" ry="7" fill="#574533"/>
     <path d="M124 150 Q131 145 138 150 Q136 159 131 159 Q125 157 124 150Z" fill="#72503D"/>
-    <path d="M131 158 L131 165 M119 165 Q125 175 131 165 Q137 175 143 165" fill="none" stroke="#72503D" stroke-width="3" stroke-linecap="round"/>
+    <path class="animal-mouth" d="M131 158 L131 165 M119 165 Q125 175 131 165 Q137 175 143 165" fill="none" stroke="#72503D" stroke-width="3" stroke-linecap="round"/>
     ${!bear ? '<path d="M103 74 Q97 53 119 47 Q128 31 143 47 Q168 45 162 73Z" fill="#FFFCF3" stroke="#C9B797" stroke-width="3"/><path d="M105 72 L162 72" stroke="#C9B797" stroke-width="3"/>' : ''}`, '0 0 260 300', cls);
 }
 export function icon(name, cls = '') {
   const paths = {
+    hand: '<path d="M10 18V7Q10 3 14 5V16L17 12Q19 10 21 13L27 17V25Q24 30 16 28L7 21Q3 17 6 15Z"/>',
     play: '<path d="M9 5L25 16 9 27Z" fill="currentColor" stroke="none"/>',
     sound: '<path d="M5 12H11L18 6V26L11 20H5Z"/><path d="M23 11Q29 16 23 21M26 6Q37 16 26 26"/>',
     parent: '<circle cx="16" cy="10" r="5"/><path d="M6 28V25Q6 17 16 17Q26 17 26 25V28"/>',

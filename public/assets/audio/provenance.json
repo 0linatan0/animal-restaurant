@@ -10,7 +10,7 @@
       "155"
     ]
   },
-  "generated": "2026-09-21T12:25:06.299Z",
+  "generated": "2026-09-23T12:34:50.547Z",
   "text": {
     "welcome": {
       "id": "welcome",
@@ -36,6 +36,26 @@
       "id": "freeThanks",
       "group": "感谢",
       "text": "谢谢你准备的饭，看起来好好吃呀！"
+    },
+    "reviewIntro": {
+      "id": "reviewIntro",
+      "group": "引导",
+      "text": "我们来数一数。想自己数，可以点小手。"
+    },
+    "addOne": {
+      "id": "addOne",
+      "group": "引导",
+      "text": "再拿一个吧。"
+    },
+    "addSome": {
+      "id": "addSome",
+      "group": "引导",
+      "text": "再拿一点吧。"
+    },
+    "takeSomeBack": {
+      "id": "takeSomeBack",
+      "group": "引导",
+      "text": "可以拿回去一些，再看看。"
     },
     "countHelp": {
       "id": "countHelp",

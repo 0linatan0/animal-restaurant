@@ -3,6 +3,11 @@ import assert from 'node:assert/strict';
 import { createSession, transition, judgeOrder, makeOrder, restoreSession, potItems } from '../public/js/model.js';
 import { FOOD_IDS, LINES } from '../public/js/catalog.js';
 const act = (s, a) => transition(s, a).state;
+const serve = s => {
+  s = act(s, { type: 'submit' });
+  for (let i = 0; s.phase === 'reviewing' && i < 20; i++) s = act(s, { type: 'reviewDone', token: s.flowId });
+  return s;
+};
 test('所有35种订单都能正确完成，错误种类优先于数量', () => {
   for (const food of FOOD_IDS) for (let n = 1; n <= 5; n++) {
     const plate = Array.from({ length: n }, (_, i) => ({ id: `${i}`, food }));
@@ -54,7 +59,7 @@ test('三轮自然结束，重复提交和提前推进不会重复计轮', () =>
   let s = createSession(); s = act(s, { type: 'advance' }); assert.equal(s.rounds, 0);
   for (let i = 0; i < 3; i++) {
     for (let n = 0; n < s.order.count; n++) s = act(s, { type: 'add', food: s.order.food });
-    s = act(s, { type: 'submit' }); s = act(s, { type: 'submit' });
+    s = serve(s); s = act(s, { type: 'submit' });
     assert.equal(s.rounds, i); s = act(s, { type: 'advance' });
   }
   assert.equal(s.phase, 'finished'); assert.equal(s.rounds, 3);
@@ -87,7 +92,7 @@ test('全部订单提供正好的实物份数，取走减少，放回增加，�
     s = act(s, { type: 'remove', id: original[0].id }); assert.equal(potItems(s).length, 1);
     assert.equal(potItems(s)[0].id, original[0].id);
     s = act(s, { type: 'add', food, id: original[0].id });
-    s = act(s, { type: 'submit' }); assert.equal(s.phase, 'serving');
+    s = serve(s); assert.equal(s.phase, 'serving');
     s = act(s, { type: 'advance' }); assert.equal(potItems(s).length, s.order.count);
   }
 });
@@ -96,7 +101,7 @@ test('有限库存刷新后不重生，旧版盘子升级后保留', () => {
   s = act(s, { type: 'add', food: 'dumpling' });
   let restored = restoreSession(JSON.stringify(s));
   assert.equal(potItems(restored).length, 4); assert.deepEqual(restored.plate, s.plate);
-  delete s.stock; s.plate[0].id = 'p-1';
+  s.version = 1; delete s.stock; s.plate[0].id = 'p-1';
   restored = restoreSession(JSON.stringify(s));
   assert.equal(potItems(restored).length, 4); assert.equal(restored.plate[0].id, 'p-1');
 });

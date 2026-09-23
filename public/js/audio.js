@@ -36,11 +36,12 @@ export class VoicePlayer {
   url(url, epoch = this.epoch) {
     return new Promise(resolve => {
       if (epoch !== this.epoch) return resolve(false);
-      const done = ok => { if (this.resolveCurrent === done) this.resolveCurrent = null; this.active = false; resolve(ok); };
+      let settled = false;
+      const done = ok => { if (settled) return; settled = true; if (this.resolveCurrent === done) { this.resolveCurrent = null; this.active = false; } resolve(ok); };
       this.resolveCurrent = done; this.audio.onended = () => done(true);
-      this.audio.onerror = () => { this.onBlocked(true, '声音暂时没有准备好，请请大人检查离线资源。'); done(false); };
+      this.audio.onerror = () => { if (epoch !== this.epoch || settled) return; this.onBlocked(true, '声音暂时没有准备好，请请大人检查离线资源。'); done(false); };
       this.audio.src = url; this.active = true;
-      this.audio.play().then(() => this.onBlocked(false)).catch(() => { this.onBlocked(true, '点一下，打开声音'); done(false); });
+      this.audio.play().then(() => { if (epoch === this.epoch && !settled) this.onBlocked(false); }).catch(() => { if (epoch !== this.epoch || settled) return; this.onBlocked(true, '点一下，打开声音'); done(false); });
     });
   }
   play(role, lines, replace = true) {

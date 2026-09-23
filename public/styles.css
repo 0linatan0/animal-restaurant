@@ -1813,3 +1813,39 @@ body:has(dialog[open]) {
   min-width:72px;
   min-height:72px;
 }
+
+/* 上菜核对保持实物位置不变，用轮廓、指针和序号共同表达进度。 */
+.review-mode .food-button:disabled { opacity:1; }
+.review-mode .count-current { outline:3px solid var(--forest); background:#e9edc6; }
+.count-current:before { content:'▼'; position:absolute; top:-19px; left:calc(50% - 8px); color:var(--forest); font-size:22px; }
+.plate-zone { position:relative; }
+.plate-total { position:absolute; top:-25px; left:0; right:0; text-align:center; color:var(--forest); font-size:19px; }
+.plate-total strong { font-size:30px; }
+.total-plate .plate-rim { box-shadow:0 0 0 3px #769664,inset 0 0 0 3px #e4d9bc; }
+.review-mode .game-controls { flex-wrap:wrap; padding-right:100px; gap:12px; }
+.review-mode .game-controls button:not(.pause-button) { min-width:150px; min-height:76px; padding:14px 20px; }
+.help-count>svg { width:38px; height:44px; }
+.review-mode .pause-button { top:22px; }
+.enjoy-scene { height:490px; position:relative; display:flex; flex-direction:column; align-items:center; padding-top:42px; background:radial-gradient(ellipse at center,#fff9e7,#edf1dd); overflow:hidden; }
+.enjoy-animal { width:260px; position:relative; z-index:1; }
+.enjoy-note { position:absolute; top:15px; left:195px; white-space:nowrap; padding:12px 18px; background:var(--paper); border:2px solid #d9dec7; border-radius:22px; color:var(--forest); }
+.enjoy-table { width:100%; height:145px; background:#efcc9e; border-top:7px solid #e4bc88; margin-top:-35px; z-index:2; display:flex; justify-content:center; padding-top:16px; }
+.enjoy-plate { display:flex; justify-content:center; align-items:center; width:350px; height:110px; border:10px solid #efe1bd; border-radius:50%; background:#fffcef; padding:10px; animation:plate-arrives .5s ease-out; }
+.enjoy-food { width:58px; flex-shrink:1; animation:enjoy-bite .7s var(--eat-delay) ease-in forwards; }
+.enjoy-animal .animal-mouth { transform-origin:131px 166px; animation:chew .5s .9s 5; }
+.enjoy-animal .animal-arm { transform-origin:197px 235px; animation:lift-paw .9s .5s 3; }
+@keyframes plate-arrives { from { transform:translateY(35px); opacity:.5; } to { transform:translateY(0); opacity:1; } }
+@keyframes enjoy-bite { 0% { transform:translateY(0); opacity:1; } 65% { transform:translate(var(--eat-x),-205px) scale(.75); opacity:1; } 100% { transform:translate(var(--eat-x),-215px) scale(.3); opacity:0; } }
+@keyframes chew { 50% { transform:scale(1.15,.65); } }
+@keyframes lift-paw { 50% { transform:rotate(-30deg); } }
+@media(max-width:540px) {
+  .review-mode .game-controls { padding-right:82px; }
+  .review-mode .game-controls button:not(.pause-button) { flex:1 1 150px; min-width:150px; font-size:18px; }
+  .enjoy-scene { height:490px; }
+  .enjoy-note { left:115px; top:-14px; font-size:15px; }
+  .enjoy-plate { width:300px; }
+  .plate-total { top:-28px; font-size:17px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .enjoy-food { opacity:1; transform:none; }
+}

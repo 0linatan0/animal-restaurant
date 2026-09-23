@@ -1,6 +1,8 @@
 {
-  "version": "772e3a94b1c56262",
+  "version": "e6232c5475a7e1cc",
   "assets": [
+    "./assets/audio/bear/addOne.mp3",
+    "./assets/audio/bear/addSome.mp3",
     "./assets/audio/bear/count-1.mp3",
     "./assets/audio/bear/count-2.mp3",
     "./assets/audio/bear/count-3.mp3",
@@ -50,9 +52,11 @@
     "./assets/audio/bear/order-shrimp-4.mp3",
     "./assets/audio/bear/order-shrimp-5.mp3",
     "./assets/audio/bear/resume.mp3",
+    "./assets/audio/bear/reviewIntro.mp3",
     "./assets/audio/bear/sortIntro.mp3",
     "./assets/audio/bear/sortThanks.mp3",
     "./assets/audio/bear/sortWrong.mp3",
+    "./assets/audio/bear/takeSomeBack.mp3",
     "./assets/audio/bear/thanks.mp3",
     "./assets/audio/bear/total-broccoli-1.mp3",
     "./assets/audio/bear/total-broccoli-2.mp3",
@@ -104,6 +108,8 @@
     "./assets/audio/bear/wrong-ribs.mp3",
     "./assets/audio/bear/wrong-shrimp.mp3",
     "./assets/audio/provenance.json",
+    "./assets/audio/rabbit/addOne.mp3",
+    "./assets/audio/rabbit/addSome.mp3",
     "./assets/audio/rabbit/count-1.mp3",
     "./assets/audio/rabbit/count-2.mp3",
     "./assets/audio/rabbit/count-3.mp3",
@@ -153,9 +159,11 @@
     "./assets/audio/rabbit/order-shrimp-4.mp3",
     "./assets/audio/rabbit/order-shrimp-5.mp3",
     "./assets/audio/rabbit/resume.mp3",
+    "./assets/audio/rabbit/reviewIntro.mp3",
     "./assets/audio/rabbit/sortIntro.mp3",
     "./assets/audio/rabbit/sortThanks.mp3",
     "./assets/audio/rabbit/sortWrong.mp3",
+    "./assets/audio/rabbit/takeSomeBack.mp3",
     "./assets/audio/rabbit/thanks.mp3",
     "./assets/audio/rabbit/total-broccoli-1.mp3",
     "./assets/audio/rabbit/total-broccoli-2.mp3",
@@ -221,5 +229,5 @@
     "./manifest.webmanifest",
     "./styles.css"
   ],
-  "bytes": 2613980
+  "bytes": 2750559
 }

@@ -11,7 +11,7 @@ export const FOOD_IDS = Object.keys(FOODS);
 export const ROLES = { rabbit: '小兔子', bear: '小熊' };
 export const NUMBERS = ['零', '一', '二', '三', '四', '五'];
 export const amount = (n) => n === 2 ? '两' : NUMBERS[n];
-export const DEFAULT_SETTINGS = { mode: 'order', quantity: '1-5', hints: 'full', minutes: 5 };
+export const DEFAULT_SETTINGS = { mode: 'order', supply: 'exact', quantity: '1-5', hints: 'full', minutes: 5 };
 export const MODE_NAMES = { order: '动物点餐', sort: '食物分类', free: '自由厨房' };
 
 const common = {
@@ -20,6 +20,10 @@ const common = {
   warning: ['入座与结束', '餐厅快要收工啦。'],
   thanks: ['感谢', '谢谢小厨师，我要开动啦！'],
   freeThanks: ['感谢', '谢谢你准备的饭，看起来好好吃呀！'],
+  reviewIntro: ['引导', '我们来数一数。想自己数，可以点小手。'],
+  addOne: ['引导', '再拿一个吧。'],
+  addSome: ['引导', '再拿一点吧。'],
+  takeSomeBack: ['引导', '可以拿回去一些，再看看。'],
   countHelp: ['引导', '我们一起数一数。点一点盘子里的食物吧。'],
   less: ['引导', '好像还少一点，我们一起数数？'],
   more: ['引导', '好像多了一点，可以拿回去再看看。'],

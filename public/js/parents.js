@@ -1,4 +1,5 @@
 import { LINES, GROUPS, ROLES, MODE_NAMES, voiceKey } from './catalog.js';
+import { normalizeSettings } from './model.js';
 import { icon, esc, animalArt } from './art.js';
 import { listClips, getClip, writeClips, local } from './storage.js';
 import { ClipRecorder, exportVoices, validateVoicePackage, importValidatedVoices } from './audio.js';
@@ -22,10 +23,10 @@ export class ParentPanel {
     this.dialog.oncancel = e => { e.preventDefault(); this.close(); };
   }
   settingsView() {
-    const s = this.formSettings, session = this.o.getSession();
+    const s = this.formSettings, extra = s.mode === 'order' && s.supply === 'extra', session = this.o.getSession();
     const options = (items, value) => Object.entries(items).map(([k, v]) => `<option value="${k}" ${String(value) === k ? 'selected' : ''}>${v}</option>`).join('');
     const summary = local.get('summary');
-    return `<div class="settings-grid"><label>今天玩什么<select id="setting-mode">${options(MODE_NAMES, s.mode)}</select></label><label>数量范围<select id="setting-quantity">${options({ '1-5': '1～5', '1-3': '1～3', 1: '只玩1', 2: '只玩2', 3: '只玩3', 4: '只玩4', 5: '只玩5' }, s.quantity)}</select></label><label>订单提示<select id="setting-hints">${options({ full: '数字＋对应份数图案', simple: '数字＋一个食物图标' }, s.hints)}</select></label><label>每次玩多久<select id="setting-minutes">${options({ 5: '5分钟', 8: '8分钟', 10: '10分钟' }, s.minutes)}</select></label></div><p class="field-help">设置在下次开局生效。点餐最多接待3位客人；分类最多玩3轮。孩子不需要完成全部数量。</p><div class="parent-actions"><button class="primary small" data-parent="save-settings">保存设置</button><button class="secondary small" data-parent="new">${session ? '按当前设置重新开局' : '准备好，去餐厅'}</button>${session && session.phase !== 'finished' ? '<button class="text-button" data-parent="skip">跳过这份订单 / 这一轮</button><button class="text-button" data-parent="finish">今天先收工</button>' : ''}</div><div class="gentle-note"><h3>一起玩，比答对更重要</h3><p>让孩子自己取放、尝试。她想换一种玩法时，可以跟着她的兴趣走。请有成人在旁陪同。</p></div><section class="summary"><h3>最近一次的小记录</h3>${summary ? `<p>${esc(MODE_NAMES[summary.mode])} · ${Math.max(1, Math.ceil(summary.seconds / 60))}分钟</p><p>接触的数量：${summary.quantities.length ? summary.quantities.join('、') : '本次主要自由探索或分类'}；${summary.hintsUsed ? '使用了数数或辅助提示' : '未使用额外提示'}。</p>` : '<p>还没有游戏记录，先一起做一顿饭吧。</p>'}<p class="field-help">用于了解玩法体验，不评价孩子的能力。</p></section>`;
+    return `<div class="settings-grid"><label>今天玩什么<select id="setting-mode">${options(MODE_NAMES, s.mode)}</select></label>${s.mode === 'order' ? `<label>备菜方式<select id="setting-supply">${options({ exact: '一起装盘 · 正好够吃', extra: '自己拿够 · 多备一份' }, s.supply)}</select></label>` : ''}<label>数量范围<select id="setting-quantity">${options(extra ? { '1-3': '1～3', 1: '只玩1', 2: '只玩2', 3: '只玩3' } : { '1-5': '1～5', '1-3': '1～3', 1: '只玩1', 2: '只玩2', 3: '只玩3', 4: '只玩4', 5: '只玩5' }, s.quantity)}</select></label><label>订单提示<select id="setting-hints" ${extra ? 'disabled' : ''}>${options({ full: '数字＋对应份数图案', simple: '数字＋一个食物图标' }, s.hints)}</select></label><label>每次玩多久<select id="setting-minutes">${options({ 5: '5分钟', 8: '8分钟', 10: '10分钟' }, s.minutes)}</select></label></div><p class="field-help">${extra ? '自己拿够：订单1～3份，锅里多一份，保留完整图案提示。' : ''}设置在下次开局生效。点餐最多接待3位客人；分类最多玩3轮。孩子不需要完成全部数量。</p><div class="parent-actions"><button class="primary small" data-parent="save-settings">保存设置</button><button class="secondary small" data-parent="new">${session ? '按当前设置重新开局' : '准备好，去餐厅'}</button>${session && session.phase !== 'finished' ? '<button class="text-button" data-parent="skip">跳过这份订单 / 这一轮</button><button class="text-button" data-parent="finish">今天先收工</button>' : ''}</div><div class="gentle-note"><h3>一起玩，比答对更重要</h3><p>让孩子自己取放、尝试。她想换一种玩法时，可以跟着她的兴趣走。请有成人在旁陪同。</p></div><section class="summary"><h3>最近一次的小记录</h3>${summary ? `<p>${esc(MODE_NAMES[summary.mode])} · ${Math.max(1, Math.ceil(summary.seconds / 60))}分钟</p><p>接触的数量：${summary.quantities.length ? summary.quantities.join('、') : '本次主要自由探索或分类'}；${summary.hintsUsed ? '使用了数数或辅助提示' : '未使用额外提示'}。</p>` : '<p>还没有游戏记录，先一起做一顿饭吧。</p>'}<p class="field-help">用于了解玩法体验，不评价孩子的能力。</p></section>`;
   }
   voiceView() {
     const key = voiceKey(this.role, this.line), saved = this.clips.some(c => c.key === key);
@@ -37,7 +38,7 @@ export class ParentPanel {
     const off = this.o.offline;
     return `<section class="offline-card"><div class="offline-symbol">${icon(off.ready ? 'check' : 'download')}</div><div><h3>${esc(off.message)}</h3><p>资源准备完整后，关掉网络也可以招待小动物。</p></div></section><div class="parent-actions"><button class="secondary small" data-parent="retry-offline">重新准备资源</button>${off.update ? '<button class="primary small" data-parent="update">安装新版本</button>' : ''}</div><h3>放到平板桌面</h3><p>iPad：在 Safari 的分享菜单里选择“添加到主屏幕”。Android：在 Chrome 菜单里选择“安装应用”或“添加到主屏幕”。</p><p class="field-help">添加后从桌面图标打开，在这个入口完成资源准备和录音。首次准备需要联网；不建议使用应用内嵌浏览器。</p><h3>把家人的声音留一份</h3><p>已保存 ${this.clips.length} 句家人录音。导出后可备份，也能导入另一台平板。</p><div class="parent-actions"><button class="primary small" data-parent="export">${icon('download')} 导出语音包</button><label class="secondary small file-button">导入语音包<input type="file" id="voice-import" accept="application/json,.json" hidden></label></div>${this.pendingImport ? `<div class="gentle-note"><p>已验证 ${this.pendingImport.length} 条录音。导入会替换同角色、同台词的现有录音，其他录音保留。</p><button class="primary small" data-parent="confirm-import">确认导入</button><button class="text-button" data-parent="cancel-import">取消</button></div>` : ''}<p class="field-help">浏览器清理数据可能移除录音，请保存一份备份。录音不会自动同步到其他设备。</p>`;
   }
-  readSettings() { return { mode: this.dialog.querySelector('#setting-mode')?.value, quantity: this.dialog.querySelector('#setting-quantity')?.value, hints: this.dialog.querySelector('#setting-hints')?.value, minutes: Number(this.dialog.querySelector('#setting-minutes')?.value) }; }
+  readSettings() { return { supply: this.dialog.querySelector('#setting-supply')?.value || this.formSettings.supply, mode: this.dialog.querySelector('#setting-mode')?.value, quantity: this.dialog.querySelector('#setting-quantity')?.value, hints: this.dialog.querySelector('#setting-hints')?.value, minutes: Number(this.dialog.querySelector('#setting-minutes')?.value) }; }
   async action(action) {
     try {
       if (action === 'close') return this.close();
@@ -73,7 +74,7 @@ export class ParentPanel {
   }
   async change(e) {
     const id = e.target.id;
-    if (id.startsWith('setting-')) { this.formSettings = this.readSettings(); return; }
+    if (id.startsWith('setting-')) { const raw = this.readSettings(); this.formSettings = normalizeSettings(raw); if (this.formSettings.quantity !== raw.quantity) this.notice = '自己拿够使用1～3份，数量范围已调整；订单始终保留完整图案提示。'; this.render(); return; }
     if (id.startsWith('voice-') && id !== 'voice-import') {
       this.o.player.stop(); this.draft = null; this.restoreConfirm = false; this.notice = '';
       if (id === 'voice-role') this.role = e.target.value;

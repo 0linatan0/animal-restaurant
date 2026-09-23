@@ -33,7 +33,7 @@ async function drag(from, to) {
   await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2); await page.mouse.down();
   await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 8 }); await page.mouse.up();
 }
-async function waitRound(round) { await page.waitForFunction(n => JSON.parse(localStorage.getItem('little-kitchen:session')).rounds === n, round, { timeout: 18000 }); }
+async function waitRound(round) { await page.waitForFunction(n => JSON.parse(localStorage.getItem('little-kitchen:session')).rounds === n, round, { timeout: 45000 }); }
 try {
   await mkdir('artifacts', { recursive: true });
   await page.goto('http://127.0.0.1:4173'); await page.waitForLoadState('networkidle');
@@ -149,13 +149,13 @@ try {
     await page.waitForFunction(() => document.querySelector('.parent-notice').textContent.includes('已导入'));
     await page.locator('[data-parent="close"]').click();
   });
-  await check('全部204条默认音频可解码', async () => {
+  await check('全部默认音频可解码', async () => {
     const result = await page.evaluate(async () => {
       const { LINES, ROLES, defaultAudio } = await import('./js/catalog.js'); const ctx = new AudioContext();
       let count = 0;
       for (const role of Object.keys(ROLES)) for (const line of Object.keys(LINES)) { const a = await ctx.decodeAudioData(await (await fetch(defaultAudio(role, line))).arrayBuffer()); if (a.duration <= .1) throw new Error(`${role}/${line}`); count++; }
       await ctx.close(); return count;
-    }); assert.equal(result, 204);
+    }); assert.equal(result, Object.keys((await import('../public/js/catalog.js')).LINES).length * 2);
   });
   await check('断网新页面冷启动、音频Range及父母录音可用', async () => {
     await context.setOffline(true); await page.close(); page = await context.newPage(); watch(page);

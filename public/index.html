@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#37644b">
+  <meta name="description" content="给小动物做一顿饭。和家人一起认识食物、数数，留下熟悉的声音。">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>小动物餐厅</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="app"><div class="boot">小动物餐厅<br><small>正在把餐桌摆好…</small></div></div>
+  <div id="drag-layer" aria-hidden="true"></div>
+  <dialog id="gate-dialog" class="gate-dialog"></dialog>
+  <dialog id="parent-dialog" class="parent-dialog"></dialog>
+  <button id="audio-recover" class="audio-recover" hidden>点一下，打开声音</button>
+  <noscript>请开启浏览器的 JavaScript，使用 Safari 或 Chrome 打开小动物餐厅。</noscript>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,526 @@
+{
+  "source": "macOS local speech synthesis",
+  "roles": {
+    "rabbit": [
+      "Tingting",
+      "175"
+    ],
+    "bear": [
+      "Eddy (中文（中国大陆）)",
+      "155"
+    ]
+  },
+  "generated": "2026-09-21T12:25:06.299Z",
+  "text": {
+    "welcome": {
+      "id": "welcome",
+      "group": "入座与结束",
+      "text": "小厨师，你好呀！"
+    },
+    "goodbye": {
+      "id": "goodbye",
+      "group": "入座与结束",
+      "text": "今天先做到这里，谢谢小厨师。我们下次再见！"
+    },
+    "warning": {
+      "id": "warning",
+      "group": "入座与结束",
+      "text": "餐厅快要收工啦。"
+    },
+    "thanks": {
+      "id": "thanks",
+      "group": "感谢",
+      "text": "谢谢小厨师，我要开动啦！"
+    },
+    "freeThanks": {
+      "id": "freeThanks",
+      "group": "感谢",
+      "text": "谢谢你准备的饭，看起来好好吃呀！"
+    },
+    "countHelp": {
+      "id": "countHelp",
+      "group": "引导",
+      "text": "我们一起数一数。点一点盘子里的食物吧。"
+    },
+    "less": {
+      "id": "less",
+      "group": "引导",
+      "text": "好像还少一点，我们一起数数？"
+    },
+    "more": {
+      "id": "more",
+      "group": "引导",
+      "text": "好像多了一点，可以拿回去再看看。"
+    },
+    "empty": {
+      "id": "empty",
+      "group": "引导",
+      "text": "先放一点食物到盘子里吧。"
+    },
+    "full": {
+      "id": "full",
+      "group": "引导",
+      "text": "盘子装满啦，可以拿回去再看看。"
+    },
+    "sortIntro": {
+      "id": "sortIntro",
+      "group": "分类与自由玩",
+      "text": "把一样的食物放在一起吧！"
+    },
+    "sortWrong": {
+      "id": "sortWrong",
+      "group": "分类与自由玩",
+      "text": "看看盘子上的图案，把一样的放在一起。"
+    },
+    "sortThanks": {
+      "id": "sortThanks",
+      "group": "分类与自由玩",
+      "text": "都分好啦，谢谢你帮忙！"
+    },
+    "freeIntro": {
+      "id": "freeIntro",
+      "group": "分类与自由玩",
+      "text": "今天你来做主，想请我吃些什么呢？"
+    },
+    "resume": {
+      "id": "resume",
+      "group": "引导",
+      "text": "我们继续做饭吧。"
+    },
+    "count-1": {
+      "id": "count-1",
+      "group": "逐个计数",
+      "text": "一"
+    },
+    "total-mixed-1": {
+      "id": "total-mixed-1",
+      "group": "总量确认",
+      "text": "一共有一个。"
+    },
+    "order-dumpling-1": {
+      "id": "order-dumpling-1",
+      "group": "点餐",
+      "text": "我想吃一个饺子。"
+    },
+    "total-dumpling-1": {
+      "id": "total-dumpling-1",
+      "group": "总量确认",
+      "text": "一共一个饺子。"
+    },
+    "order-shrimp-1": {
+      "id": "order-shrimp-1",
+      "group": "点餐",
+      "text": "我想吃一只虾。"
+    },
+    "total-shrimp-1": {
+      "id": "total-shrimp-1",
+      "group": "总量确认",
+      "text": "一共一只虾。"
+    },
+    "order-ribs-1": {
+      "id": "order-ribs-1",
+      "group": "点餐",
+      "text": "我想吃一块排骨。"
+    },
+    "total-ribs-1": {
+      "id": "total-ribs-1",
+      "group": "总量确认",
+      "text": "一共一块排骨。"
+    },
+    "order-broccoli-1": {
+      "id": "order-broccoli-1",
+      "group": "点餐",
+      "text": "我想吃一朵西蓝花。"
+    },
+    "total-broccoli-1": {
+      "id": "total-broccoli-1",
+      "group": "总量确认",
+      "text": "一共一朵西蓝花。"
+    },
+    "order-greens-1": {
+      "id": "order-greens-1",
+      "group": "点餐",
+      "text": "我想吃一棵青菜。"
+    },
+    "total-greens-1": {
+      "id": "total-greens-1",
+      "group": "总量确认",
+      "text": "一共一棵青菜。"
+    },
+    "order-mushroom-1": {
+      "id": "order-mushroom-1",
+      "group": "点餐",
+      "text": "我想吃一个香菇。"
+    },
+    "total-mushroom-1": {
+      "id": "total-mushroom-1",
+      "group": "总量确认",
+      "text": "一共一个香菇。"
+    },
+    "order-bun-1": {
+      "id": "order-bun-1",
+      "group": "点餐",
+      "text": "我想吃一个包子。"
+    },
+    "total-bun-1": {
+      "id": "total-bun-1",
+      "group": "总量确认",
+      "text": "一共一个包子。"
+    },
+    "count-2": {
+      "id": "count-2",
+      "group": "逐个计数",
+      "text": "二"
+    },
+    "total-mixed-2": {
+      "id": "total-mixed-2",
+      "group": "总量确认",
+      "text": "一共有两个。"
+    },
+    "order-dumpling-2": {
+      "id": "order-dumpling-2",
+      "group": "点餐",
+      "text": "我想吃两个饺子。"
+    },
+    "total-dumpling-2": {
+      "id": "total-dumpling-2",
+      "group": "总量确认",
+      "text": "一共两个饺子。"
+    },
+    "order-shrimp-2": {
+      "id": "order-shrimp-2",
+      "group": "点餐",
+      "text": "我想吃两只虾。"
+    },
+    "total-shrimp-2": {
+      "id": "total-shrimp-2",
+      "group": "总量确认",
+      "text": "一共两只虾。"
+    },
+    "order-ribs-2": {
+      "id": "order-ribs-2",
+      "group": "点餐",
+      "text": "我想吃两块排骨。"
+    },
+    "total-ribs-2": {
+      "id": "total-ribs-2",
+      "group": "总量确认",
+      "text": "一共两块排骨。"
+    },
+    "order-broccoli-2": {
+      "id": "order-broccoli-2",
+      "group": "点餐",
+      "text": "我想吃两朵西蓝花。"
+    },
+    "total-broccoli-2": {
+      "id": "total-broccoli-2",
+      "group": "总量确认",
+      "text": "一共两朵西蓝花。"
+    },
+    "order-greens-2": {
+      "id": "order-greens-2",
+      "group": "点餐",
+      "text": "我想吃两棵青菜。"
+    },
+    "total-greens-2": {
+      "id": "total-greens-2",
+      "group": "总量确认",
+      "text": "一共两棵青菜。"
+    },
+    "order-mushroom-2": {
+      "id": "order-mushroom-2",
+      "group": "点餐",
+      "text": "我想吃两个香菇。"
+    },
+    "total-mushroom-2": {
+      "id": "total-mushroom-2",
+      "group": "总量确认",
+      "text": "一共两个香菇。"
+    },
+    "order-bun-2": {
+      "id": "order-bun-2",
+      "group": "点餐",
+      "text": "我想吃两个包子。"
+    },
+    "total-bun-2": {
+      "id": "total-bun-2",
+      "group": "总量确认",
+      "text": "一共两个包子。"
+    },
+    "count-3": {
+      "id": "count-3",
+      "group": "逐个计数",
+      "text": "三"
+    },
+    "total-mixed-3": {
+      "id": "total-mixed-3",
+      "group": "总量确认",
+      "text": "一共有三个。"
+    },
+    "order-dumpling-3": {
+      "id": "order-dumpling-3",
+      "group": "点餐",
+      "text": "我想吃三个饺子。"
+    },
+    "total-dumpling-3": {
+      "id": "total-dumpling-3",
+      "group": "总量确认",
+      "text": "一共三个饺子。"
+    },
+    "order-shrimp-3": {
+      "id": "order-shrimp-3",
+      "group": "点餐",
+      "text": "我想吃三只虾。"
+    },
+    "total-shrimp-3": {
+      "id": "total-shrimp-3",
+      "group": "总量确认",
+      "text": "一共三只虾。"
+    },
+    "order-ribs-3": {
+      "id": "order-ribs-3",
+      "group": "点餐",
+      "text": "我想吃三块排骨。"
+    },
+    "total-ribs-3": {
+      "id": "total-ribs-3",
+      "group": "总量确认",
+      "text": "一共三块排骨。"
+    },
+    "order-broccoli-3": {
+      "id": "order-broccoli-3",
+      "group": "点餐",
+      "text": "我想吃三朵西蓝花。"
+    },
+    "total-broccoli-3": {
+      "id": "total-broccoli-3",
+      "group": "总量确认",
+      "text": "一共三朵西蓝花。"
+    },
+    "order-greens-3": {
+      "id": "order-greens-3",
+      "group": "点餐",
+      "text": "我想吃三棵青菜。"
+    },
+    "total-greens-3": {
+      "id": "total-greens-3",
+      "group": "总量确认",
+      "text": "一共三棵青菜。"
+    },
+    "order-mushroom-3": {
+      "id": "order-mushroom-3",
+      "group": "点餐",
+      "text": "我想吃三个香菇。"
+    },
+    "total-mushroom-3": {
+      "id": "total-mushroom-3",
+      "group": "总量确认",
+      "text": "一共三个香菇。"
+    },
+    "order-bun-3": {
+      "id": "order-bun-3",
+      "group": "点餐",
+      "text": "我想吃三个包子。"
+    },
+    "total-bun-3": {
+      "id": "total-bun-3",
+      "group": "总量确认",
+      "text": "一共三个包子。"
+    },
+    "count-4": {
+      "id": "count-4",
+      "group": "逐个计数",
+      "text": "四"
+    },
+    "total-mixed-4": {
+      "id": "total-mixed-4",
+      "group": "总量确认",
+      "text": "一共有四个。"
+    },
+    "order-dumpling-4": {
+      "id": "order-dumpling-4",
+      "group": "点餐",
+      "text": "我想吃四个饺子。"
+    },
+    "total-dumpling-4": {
+      "id": "total-dumpling-4",
+      "group": "总量确认",
+      "text": "一共四个饺子。"
+    },
+    "order-shrimp-4": {
+      "id": "order-shrimp-4",
+      "group": "点餐",
+      "text": "我想吃四只虾。"
+    },
+    "total-shrimp-4": {
+      "id": "total-shrimp-4",
+      "group": "总量确认",
+      "text": "一共四只虾。"
+    },
+    "order-ribs-4": {
+      "id": "order-ribs-4",
+      "group": "点餐",
+      "text": "我想吃四块排骨。"
+    },
+    "total-ribs-4": {
+      "id": "total-ribs-4",
+      "group": "总量确认",
+      "text": "一共四块排骨。"
+    },
+    "order-broccoli-4": {
+      "id": "order-broccoli-4",
+      "group": "点餐",
+      "text": "我想吃四朵西蓝花。"
+    },
+    "total-broccoli-4": {
+      "id": "total-broccoli-4",
+      "group": "总量确认",
+      "text": "一共四朵西蓝花。"
+    },
+    "order-greens-4": {
+      "id": "order-greens-4",
+      "group": "点餐",
+      "text": "我想吃四棵青菜。"
+    },
+    "total-greens-4": {
+      "id": "total-greens-4",
+      "group": "总量确认",
+      "text": "一共四棵青菜。"
+    },
+    "order-mushroom-4": {
+      "id": "order-mushroom-4",
+      "group": "点餐",
+      "text": "我想吃四个香菇。"
+    },
+    "total-mushroom-4": {
+      "id": "total-mushroom-4",
+      "group": "总量确认",
+      "text": "一共四个香菇。"
+    },
+    "order-bun-4": {
+      "id": "order-bun-4",
+      "group": "点餐",
+      "text": "我想吃四个包子。"
+    },
+    "total-bun-4": {
+      "id": "total-bun-4",
+      "group": "总量确认",
+      "text": "一共四个包子。"
+    },
+    "count-5": {
+      "id": "count-5",
+      "group": "逐个计数",
+      "text": "五"
+    },
+    "total-mixed-5": {
+      "id": "total-mixed-5",
+      "group": "总量确认",
+      "text": "一共有五个。"
+    },
+    "order-dumpling-5": {
+      "id": "order-dumpling-5",
+      "group": "点餐",
+      "text": "我想吃五个饺子。"
+    },
+    "total-dumpling-5": {
+      "id": "total-dumpling-5",
+      "group": "总量确认",
+      "text": "一共五个饺子。"
+    },
+    "order-shrimp-5": {
+      "id": "order-shrimp-5",
+      "group": "点餐",
+      "text": "我想吃五只虾。"
+    },
+    "total-shrimp-5": {
+      "id": "total-shrimp-5",
+      "group": "总量确认",
+      "text": "一共五只虾。"
+    },
+    "order-ribs-5": {
+      "id": "order-ribs-5",
+      "group": "点餐",
+      "text": "我想吃五块排骨。"
+    },
+    "total-ribs-5": {
+      "id": "total-ribs-5",
+      "group": "总量确认",
+      "text": "一共五块排骨。"
+    },
+    "order-broccoli-5": {
+      "id": "order-broccoli-5",
+      "group": "点餐",
+      "text": "我想吃五朵西蓝花。"
+    },
+    "total-broccoli-5": {
+      "id": "total-broccoli-5",
+      "group": "总量确认",
+      "text": "一共五朵西蓝花。"
+    },
+    "order-greens-5": {
+      "id": "order-greens-5",
+      "group": "点餐",
+      "text": "我想吃五棵青菜。"
+    },
+    "total-greens-5": {
+      "id": "total-greens-5",
+      "group": "总量确认",
+      "text": "一共五棵青菜。"
+    },
+    "order-mushroom-5": {
+      "id": "order-mushroom-5",
+      "group": "点餐",
+      "text": "我想吃五个香菇。"
+    },
+    "total-mushroom-5": {
+      "id": "total-mushroom-5",
+      "group": "总量确认",
+      "text": "一共五个香菇。"
+    },
+    "order-bun-5": {
+      "id": "order-bun-5",
+      "group": "点餐",
+      "text": "我想吃五个包子。"
+    },
+    "total-bun-5": {
+      "id": "total-bun-5",
+      "group": "总量确认",
+      "text": "一共五个包子。"
+    },
+    "wrong-dumpling": {
+      "id": "wrong-dumpling",
+      "group": "引导",
+      "text": "看看，我想吃的是饺子。"
+    },
+    "wrong-shrimp": {
+      "id": "wrong-shrimp",
+      "group": "引导",
+      "text": "看看，我想吃的是虾。"
+    },
+    "wrong-ribs": {
+      "id": "wrong-ribs",
+      "group": "引导",
+      "text": "看看，我想吃的是排骨。"
+    },
+    "wrong-broccoli": {
+      "id": "wrong-broccoli",
+      "group": "引导",
+      "text": "看看，我想吃的是西蓝花。"
+    },
+    "wrong-greens": {
+      "id": "wrong-greens",
+      "group": "引导",
+      "text": "看看，我想吃的是青菜。"
+    },
+    "wrong-mushroom": {
+      "id": "wrong-mushroom",
+      "group": "引导",
+      "text": "看看，我想吃的是香菇。"
+    },
+    "wrong-bun": {
+      "id": "wrong-bun",
+      "group": "引导",
+      "text": "看看，我想吃的是包子。"
+    }
+  }
+}

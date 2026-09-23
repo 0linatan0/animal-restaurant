@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "小动物餐厅",
+  "short_name": "小动物餐厅",
+  "description": "挑一挑，数一数，给小动物做一顿饭。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#e6f0df",
+  "theme_color": "#37644b",
+  "icons": [
+    { "src": "./assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -2,6 +2,19 @@
 
 给2～3岁孩子和照护者一起玩的离线 H5 小游戏。小兔子、小熊是餐厅客人，支持动物点餐、食物分类、自由厨房，以及父母逐句配音。
 
+## 先看项目资料
+
+准备参与产品或开发时，从 [项目文档导航](docs/README.md) 开始。项目中已经保存：
+
+- [产品需求](docs/PRD.md)和[产品与交互设计](docs/PRODUCT_DESIGN.md)
+- [真实家庭场景与关键背景](docs/PROJECT_CONTEXT.md)
+- [技术架构](docs/ARCHITECTURE.md)和[协作开发指南](docs/CONTRIBUTING.md)
+- [关键决策](docs/DECISIONS.md)、[后续路线](docs/ROADMAP.md)、[验收](docs/ACCEPTANCE.md)和[部署记录](docs/DEPLOYMENT.md)
+
+当前已实现的行为以PRD为准；讨论中的双设备自动同步和批量生成家人语音记录在路线文档中，不属于当前版本。
+
+仓库根目录的 [`AGENTS.md`](AGENTS.md) 是AI协作入口。其他人拉取项目后，从仓库目录启动Codex，Codex会先获得核心背景，再按任务读取对应的详细文档。
+
 ## 本机启动
 
 需要 Node.js 20 或更新版本。应用没有第三方运行时依赖，不必安装 npm 包。
@@ -76,7 +89,7 @@ npm run build
 - `public/js/app.js`、`art.js`、`styles.css`：界面、触摸交互和本地矢量插画。
 - `public/js/parents.js`、`audio.js`、`storage.js`：家长设置、音频、录音与备份。
 - `public/js/offline.js`、`scripts/sw-template.js`：离线准备、音频 Range 支持和显式更新。
-- `docs/PRD.md`：实现范围及产品规则；`docs/ACCEPTANCE.md`：验收情况和真机清单。
+- `docs/README.md`：需求、设计、架构、决策、路线、验收和部署资料的统一入口。
 
 自动化浏览器通过不等于 iPad / Android 真机通过；真实平板、真实麦克风、添加到桌面与儿童试用必须按验收清单检查。
 

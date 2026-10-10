@@ -1,0 +1,65 @@
+tests/voice-pack-browser.mjs
+  ceaad8a919ccb7c2 40,42-43,45,47-53,66-73,77-78,84-97,99,113
+docs/ARCHITECTURE.md
+  ceaad8a919ccb7c2 73,97
+public/asset-manifest.json
+  ceaad8a919ccb7c2 2,232
+docs/ACCEPTANCE.md
+  ceaad8a919ccb7c2 54-61
+public/sw.js
+  ceaad8a919ccb7c2 1
+public/js/storage.js
+  ceaad8a919ccb7c2 12-33,45,49,52-53,59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8-ntes.9",
+  "base_commit_sha": "9d77badc3a043dfa18791cc62f2bbe9abb12fa0b",
+  "prompts": {
+    "ceaad8a919ccb7c2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d3b2-504e-7d02-be2a-92ffe84b56ac",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "0linatan0",
+      "messages": [],
+      "total_additions": 78,
+      "total_deletions": 16,
+      "accepted_lines": 77,
+      "overriden_lines": 0,
+      "per_file_stats": {
+        "docs/ARCHITECTURE.md": {
+          "additions": 2,
+          "deletions": 2,
+          "accepted_lines": 2
+        },
+        "public/sw.js": {
+          "additions": 1,
+          "deletions": 1,
+          "accepted_lines": 1
+        },
+        "docs/ACCEPTANCE.md": {
+          "additions": 9,
+          "deletions": 1,
+          "accepted_lines": 8
+        },
+        "tests/voice-pack-browser.mjs": {
+          "additions": 37,
+          "deletions": 7,
+          "accepted_lines": 37
+        },
+        "public/asset-manifest.json": {
+          "additions": 2,
+          "deletions": 2,
+          "accepted_lines": 2
+        },
+        "public/js/storage.js": {
+          "additions": 27,
+          "deletions": 3,
+          "accepted_lines": 27
+        }
+      }
+    }
+  }
+}

@@ -16,12 +16,21 @@ export class VoicePlayer {
     this.audio = new Audio(); this.audio.preload = 'auto'; this.epoch = 0; this.tail = Promise.resolve(true); this.onBlocked = onBlocked; this.context = null; this.active = false;
   }
   async unlock() {
-    this.context ||= new (window.AudioContext || window.webkitAudioContext)();
-    await this.context.resume();
-    if (this.unlocked) return;
+    this.stop();
+    const epoch = this.epoch;
+    // 音效与语音分别解锁；不能让音效引擎的恢复等待消耗本次点击的播放授权。
+    try {
+      if (!this.context || this.context.state === 'closed') this.context = new (window.AudioContext || window.webkitAudioContext)();
+      this.context.resume().catch(() => {});
+    } catch {}
     const url = URL.createObjectURL(pcmWav(new Float32Array(2205)));
-    try { this.audio.src = url; await this.audio.play(); this.audio.pause(); this.unlocked = true; this.onBlocked(false); }
-    finally { URL.revokeObjectURL(url); }
+    try {
+      // 每次主动恢复都重新尝试，不能把中断前的解锁结果当作永久授权。
+      this.audio.src = url; this.active = true;
+      await this.audio.play();
+      if (epoch !== this.epoch) return;
+      this.audio.pause(); this.onBlocked(false);
+    } finally { if (epoch === this.epoch) this.active = false; URL.revokeObjectURL(url); }
   }
   stop() {
     this.epoch++; this.audio.pause(); this.resolveCurrent?.(false); this.resolveCurrent = null; this.tail = Promise.resolve(true); this.active = false;

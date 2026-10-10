@@ -1,0 +1,173 @@
+public/asset-manifest.json
+  52df9750c71df93d 2,232
+docs/ACCEPTANCE.md
+  52df9750c71df93d 30-38
+tests/audio-player.test.mjs
+  52df9750c71df93d 5-76
+public/js/audio.js
+  52df9750c71df93d 19-25,27-33
+docs/ARCHITECTURE.md
+  52df9750c71df93d 62-67
+public/sw.js
+  52df9750c71df93d 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8-ntes.9",
+  "base_commit_sha": "87b566d5d9e4787a0e136c64d875087f7224f5e5",
+  "prompts": {
+    "52df9750c71df93d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a124bc-14b4-7d31-b074-184de6ba36af",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "0linatan0",
+      "messages": [],
+      "total_additions": 110,
+      "total_deletions": 14,
+      "accepted_lines": 106,
+      "overriden_lines": 0,
+      "per_file_stats": {
+        "public/sw.js": {
+          "additions": 1,
+          "deletions": 1,
+          "accepted_lines": 1
+        },
+        "public/asset-manifest.json": {
+          "additions": 2,
+          "deletions": 2,
+          "accepted_lines": 2
+        },
+        "docs/ACCEPTANCE.md": {
+          "additions": 12,
+          "deletions": 3,
+          "accepted_lines": 9
+        },
+        "public/js/audio.js": {
+          "additions": 14,
+          "deletions": 5,
+          "accepted_lines": 14
+        },
+        "docs/ARCHITECTURE.md": {
+          "additions": 9,
+          "deletions": 3,
+          "accepted_lines": 8
+        },
+        "tests/audio-player.test.mjs": {
+          "additions": 72,
+          "accepted_lines": 72
+        }
+      }
+    },
+    "ceaad8a919ccb7c2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d3b2-504e-7d02-be2a-92ffe84b56ac",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "0linatan0",
+      "messages": [],
+      "total_additions": 737,
+      "total_deletions": 23,
+      "accepted_lines": 721,
+      "overriden_lines": 0,
+      "per_file_stats": {
+        "docs/ROADMAP.md": {
+          "additions": 5,
+          "deletions": 1,
+          "accepted_lines": 5
+        },
+        "docs/VOICE_PACKS.md": {
+          "additions": 96,
+          "accepted_lines": 96
+        },
+        "package.json": {
+          "additions": 2,
+          "accepted_lines": 2
+        },
+        "docs/superpowers/plans/2026-09-24-family-voice-pack.md": {
+          "additions": 55,
+          "deletions": 13,
+          "accepted_lines": 42
+        },
+        "tests/voice-pack.test.mjs": {
+          "additions": 130,
+          "accepted_lines": 130
+        },
+        "docs/PROJECT_CONTEXT.md": {
+          "additions": 1,
+          "deletions": 1,
+          "accepted_lines": 1
+        },
+        ".gitignore": {
+          "additions": 4,
+          "accepted_lines": 4
+        },
+        "AGENTS.md": {
+          "additions": 1,
+          "deletions": 1,
+          "accepted_lines": 1
+        },
+        "tests/voice-pack-browser.mjs": {
+          "additions": 62,
+          "deletions": 1,
+          "accepted_lines": 61
+        },
+        "docs/README.md": {
+          "additions": 2,
+          "deletions": 1,
+          "accepted_lines": 2
+        },
+        "docs/DECISIONS.md": {
+          "additions": 1,
+          "deletions": 1,
+          "accepted_lines": 1
+        },
+        "scripts/voice-pack/runner.mjs": {
+          "additions": 72,
+          "accepted_lines": 72
+        },
+        "scripts/voice-pack/volcengine.mjs": {
+          "additions": 66,
+          "accepted_lines": 66
+        },
+        "scripts/voice-pack/profiles.example.json": {
+          "additions": 20,
+          "accepted_lines": 20
+        },
+        "docs/ACCEPTANCE.md": {
+          "additions": 8,
+          "accepted_lines": 8
+        },
+        "docs/PRODUCT_DESIGN.md": {
+          "additions": 2,
+          "accepted_lines": 2
+        },
+        "scripts/voice-pack/core.mjs": {
+          "additions": 94,
+          "accepted_lines": 94
+        },
+        "docs/superpowers/specs/2026-09-24-family-voice-pack-design.md": {
+          "additions": 38,
+          "deletions": 2,
+          "accepted_lines": 36
+        },
+        "docs/ARCHITECTURE.md": {
+          "additions": 11,
+          "deletions": 1,
+          "accepted_lines": 11
+        },
+        "scripts/generate-voice-pack.mjs": {
+          "additions": 64,
+          "accepted_lines": 64
+        },
+        "docs/PRD.md": {
+          "additions": 3,
+          "deletions": 1,
+          "accepted_lines": 3
+        }
+      }
+    }
+  }
+}

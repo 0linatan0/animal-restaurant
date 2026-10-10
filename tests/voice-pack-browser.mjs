@@ -37,12 +37,20 @@ try {
   for (let i = 0; i < pcm.length / 2; i++) pcm.writeInt16LE(Math.round(Math.sin(i * .1) * 1000), i * 2);
   const wav = pcmToWav(pcm), lines = selectLines('rabbit'), audio = new Map(lines.map(line => [line.id, wav]));
   const rabbit = makePackage('rabbit', lines, audio), bear = makePackage('bear', selectLines('bear', ['welcome']), audio);
-  // 先保存另一角色的测试录音，确认小兔子导入不会影响它。
+  // 模拟旧版本直接把 Blob 保存到 IndexedDB，确认升级后仍能读取并保留它。
   await page.evaluate(async content => {
-    const { validateVoicePackage, importValidatedVoices } = await import('/js/audio.js');
+    const { validateVoicePackage } = await import('/js/audio.js');
+    const { db } = await import('/js/storage.js');
     const audioContext = new AudioContext();
-    await importValidatedVoices(await validateVoicePackage(new Blob([content]), audioContext));
+    const [clip] = await validateVoicePackage(new Blob([content]), audioContext);
     await audioContext.close();
+    const database = await db();
+    await new Promise((resolve, reject) => {
+      const transaction = database.transaction('clips', 'readwrite');
+      transaction.objectStore('clips').put(clip);
+      transaction.oncomplete = resolve;
+      transaction.onabort = transaction.onerror = () => reject(transaction.error);
+    });
   }, bear);
   const entry = page.locator('.parent-entry'), box = await entry.boundingBox();
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2); await page.mouse.down();
@@ -55,18 +63,40 @@ try {
   await page.locator('#voice-import').setInputFiles({ name: 'rabbit-test.json', mimeType: 'application/json', buffer: Buffer.from(rabbit) });
   await page.locator('[data-parent="confirm-import"]').waitFor();
   assert.equal(await page.evaluate(async () => (await (await import('/js/storage.js')).listClips()).length), 1);
+  // 部分 iPad Safari 上，IndexedDB 会以 BlobURLs are not yet supported 拒绝直接保存 Blob。
+  await page.evaluate(() => {
+    const originalPut = IDBObjectStore.prototype.put;
+    IDBObjectStore.prototype.put = function put(value, ...args) {
+      if (value?.blob instanceof Blob) throw new DOMException('Failed to store record in an IDBObjectStore: BlobURLs are not yet supported', 'DataCloneError');
+      return originalPut.call(this, value, ...args);
+    };
+  });
   await page.locator('[data-parent="confirm-import"]').click();
   await page.waitForFunction(async () => (await (await import('/js/storage.js')).listClips()).length === 107);
   const summary = await page.evaluate(async () => {
-    const clips = await (await import('/js/storage.js')).listClips(), audioContext = new AudioContext();
+    const storage = await import('/js/storage.js');
+    const clips = await storage.listClips(), audioContext = new AudioContext();
     for (const clip of clips) {
       const decoded = await audioContext.decodeAudioData(await clip.blob.arrayBuffer());
       if (decoded.numberOfChannels !== 1 || Math.abs(decoded.duration - .25) > .01) throw new Error('解码不符合预期');
     }
     await audioContext.close();
-    return { rabbit: clips.filter(c => c.key.startsWith('rabbit/')).length, bear: clips.filter(c => c.key.startsWith('bear/')).length };
+    const database = await storage.db();
+    const records = await new Promise((resolve, reject) => {
+      const request = database.transaction('clips').objectStore('clips').getAll();
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    const rabbitRecord = records.find(record => record.key === 'rabbit/welcome');
+    const bearRecord = records.find(record => record.key === 'bear/welcome');
+    return {
+      rabbit: clips.filter(c => c.key.startsWith('rabbit/')).length,
+      bear: clips.filter(c => c.key.startsWith('bear/')).length,
+      rabbitUsesBytes: rabbitRecord?.bytes instanceof ArrayBuffer && !('blob' in rabbitRecord),
+      legacyBearUsesBlob: bearRecord?.blob instanceof Blob,
+    };
   });
-  assert.deepEqual(summary, { rabbit: 106, bear: 1 });
+  assert.deepEqual(summary, { rabbit: 106, bear: 1, rabbitUsesBytes: true, legacyBearUsesBlob: true });
   const broken = JSON.parse(rabbit); broken.clips[1].data = Buffer.from('bad wav').toString('base64');
   await page.locator('#voice-import').setInputFiles({ name: 'broken-test.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(broken)) });
   await page.getByText('未导入：语音包中的录音不是可移植的 WAV 格式。', { exact: true }).waitFor();
@@ -80,5 +110,5 @@ try {
   await reviewPage.setContent(reviewHtml('rabbit', lines, audio));
   assert.equal(await reviewPage.locator('audio').count(), 106);
   assert.deepEqual(errors, []);
-  console.log('PASS 全量包浏览器解码、确认前不写入、导入小兔子保留小熊、损坏包保留原录音、离线读取及试听页。测试音为合成波形，不是家人声音。');
+  console.log('PASS 全量包浏览器解码、iPad Blob 存储限制、旧录音兼容、确认前不写入、导入小兔子保留小熊、损坏包保留原录音、离线读取及试听页。测试音为合成波形，不是家人声音。');
 } finally { await browser?.close(); server.kill(); }

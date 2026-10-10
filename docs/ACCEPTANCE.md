@@ -51,6 +51,14 @@
 - 浏览器回归强制所有媒体播放返回 `NotAllowedError`，旧实现无法出现导入确认，修复后完整通过。真实 106 句小兔子语音包也通过校验；仍需在反馈问题的 iPad 上更新后完成一次实际导入。
 - 已发布到 Cloudflare Pages Production，线上资源版本为 `b2f555e9f26fc4b1`。无旧缓存窗口完成离线准备、开始游戏、订单语音和取放检查；iPad 真机导入结果仍待用户确认。
 
+## 2026-10-10 iPad IndexedDB 录音存储修复
+
+- 用户在 iPad 点击“确认导入”后遇到 `Failed to store record in an IDBObjectStore: BlobURLs are not yet supported`。语音包已经完整校验，失败发生在把 WAV Blob 写入 IndexedDB 的阶段。
+- 新写入记录改为保存 WAV 的 `ArrayBuffer` 和 MIME，读取时恢复为 Blob；旧版本已经保存的 Blob 记录继续可读、可播放和可导出。数据库结构与语音包 v1 格式不变。
+- 106 句导入仍在转换全部录音后用一次 IndexedDB 事务提交；转换或事务失败均保留原录音，不产生半包数据。
+- 浏览器回归模拟 IndexedDB 拒绝任何含 Blob 的写入，新实现成功保存全部 106 句小兔子录音，并保留、解码旧格式的小熊录音；本机真实 106 句复刻语音包也通过完整校验。
+- `npm test` 40 项、`TEST_MIC=1 npm run test:browser` 15 组、`npm run test:serving` 7 组和部署回归全部通过。构建版本 `2e601415a290021c`，发布包 229 个文件、SHA-256 为 `451a2145ae3ff595428fe2d8907ca022e6744b3d5bef7e1904a0e0562bd5fe0f`；仍需在反馈问题的 iPad 上复验实际导入。
+
 ## 真机验收清单（待完成）
 
 在至少一台iPad及一台Android平板上分别检查：

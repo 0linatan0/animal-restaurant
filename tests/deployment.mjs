@@ -69,7 +69,15 @@ try {
   });
   const replacement = await replacementPromise;
   await replacement.evaluate(() => new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => { clearInterval(poll); reject(new Error('修复版本未自动激活')); }, 15000);
+    const timeout = setTimeout(async () => {
+      clearInterval(poll);
+      const r = self.registration;
+      const cachesState = await Promise.all((await caches.keys()).map(async name => ({
+        name,
+        indexRedirected: Boolean((await (await caches.open(name)).match(new URL('./index.html', self.registration.scope).href))?.redirected),
+      })));
+      reject(new Error(`修复版本未自动激活：${JSON.stringify({ installing: r.installing?.state, waiting: r.waiting?.state, active: r.active?.state, cachesState })}`));
+    }, 15000);
     const poll = setInterval(() => {
       const r = self.registration;
       if (!r.installing && !r.waiting && r.active?.state === 'activated') { clearTimeout(timeout); clearInterval(poll); resolve(); }

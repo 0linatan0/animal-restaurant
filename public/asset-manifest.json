@@ -1,5 +1,5 @@
 {
-  "version": "9df4e41e830db452",
+  "version": "b2f555e9f26fc4b1",
   "assets": [
     "./assets/audio/bear/addOne.mp3",
     "./assets/audio/bear/addSome.mp3",
@@ -229,5 +229,5 @@
     "./manifest.webmanifest",
     "./styles.css"
   ],
-  "bytes": 2750979
+  "bytes": 2751513
 }

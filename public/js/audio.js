@@ -116,6 +116,10 @@ export async function validateVoicePackage(file, context) {
   if (file.size > 80 * 1024 * 1024) throw new Error('语音包超过80MB，请检查文件。');
   let p; try { p = JSON.parse(await file.text()); } catch { throw new Error('这不是有效的语音包文件。'); }
   if (p.format !== 'little-kitchen-voices' || p.version !== 1 || !Array.isArray(p.clips) || p.clips.length > (Object.keys(LINES).length + ARCHIVED_LINE_IDS.length) * 2) throw new Error('语音包格式或版本不支持。');
+  // 文件选择器返回时，iPad Safari 已失去音频播放的用户手势授权。校验只解码、不播放，使用离线上下文即可。
+  const OfflineContext = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+  const decoder = context || (OfflineContext ? new OfflineContext(1, 1, 22050) : null);
+  if (!decoder) throw new Error('此浏览器无法检查语音包中的录音。');
   const seen = new Set(), clips = [];
   for (const item of p.clips) {
     if (typeof item.key !== 'string') throw new Error('语音包包含未知台词。');
@@ -123,9 +127,10 @@ export async function validateVoicePackage(file, context) {
     if (!Object.hasOwn(ROLES, role) || (!Object.hasOwn(LINES, line) && !ARCHIVED_LINE_IDS.includes(line)) || extra || seen.has(item.key) || item.mime !== 'audio/wav' || typeof item.data !== 'string' || item.data.length > 1000000) throw new Error('语音包包含无效或重复录音。');
     seen.add(item.key);
     let bytes; try { bytes = Uint8Array.from(atob(item.data), c => c.charCodeAt(0)); } catch { throw new Error('语音包中的音频数据不完整。'); }
-    const head = new TextDecoder().decode(bytes.slice(0, 12));
-    if (!head.startsWith('RIFF') || head.slice(8) !== 'WAVE') throw new Error('语音包中的录音不是可移植的 WAV 格式。');
-    const decoded = await context.decodeAudioData(bytes.buffer.slice(0)).catch(() => null);
+    // RIFF 的 4～7 字节是二进制文件长度，不能把整个头部按 UTF-8 解码后再按字符位置判断。
+    const asciiAt = (offset, text) => [...text].every((c, i) => bytes[offset + i] === c.charCodeAt(0));
+    if (bytes.length < 12 || !asciiAt(0, 'RIFF') || !asciiAt(8, 'WAVE')) throw new Error('语音包中的录音不是可移植的 WAV 格式。');
+    const decoded = await decoder.decodeAudioData(bytes.buffer.slice(0)).catch(() => null);
     if (!decoded || decoded.duration < .15 || decoded.duration > 15.1 || decoded.numberOfChannels !== 1) throw new Error('录音损坏、过长或声道格式不支持，已有录音保持不变。');
     clips.push({ key: item.key, blob: new Blob([bytes], { type: 'audio/wav' }), updatedAt: new Date().toISOString() });
   }

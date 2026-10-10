@@ -3,3 +3,8 @@ artifacts/
 dist/
 .DS_Store
 *.log
+.voice-packs/
+*.voice-pack.json
+.env
+.env.*
+!.env.example

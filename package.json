@@ -1,6 +1,6 @@
 {
   "name": "little-animal-kitchen",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,6 +10,8 @@
     "test:browser": "node tests/browser.mjs",
     "test:deployment": "node tests/deployment.mjs",
     "audio": "node scripts/generate-audio.mjs",
+    "voice": "node scripts/generate-voice-pack.mjs",
+    "test:voice-pack": "node tests/voice-pack-browser.mjs",
     "test:serving": "node tests/serving-browser.mjs"
   }
 }

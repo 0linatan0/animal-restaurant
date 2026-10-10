@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "mine": {
+      "speakerEnv": "VOLC_MY_SPEAKER",
+      "apiKeyEnv": "VOLC_API_KEY",
+      "appIdEnv": "VOLC_APP_ID",
+      "accessTokenEnv": "VOLC_ACCESS_TOKEN",
+      "model": "seed-tts-2.0-standard",
+      "speechRate": 0
+    },
+    "dad": {
+      "speakerEnv": "VOLC_DAD_SPEAKER",
+      "apiKeyEnv": "VOLC_DAD_API_KEY",
+      "appIdEnv": "VOLC_DAD_APP_ID",
+      "accessTokenEnv": "VOLC_DAD_ACCESS_TOKEN",
+      "model": "seed-tts-2.0-standard",
+      "speechRate": 0
+    }
+  }
+}

@@ -84,7 +84,7 @@ export class ParentPanel {
     }
     if (id === 'voice-import' && e.target.files[0]) {
       const file = e.target.files[0]; this.notice = '正在检查每一条录音…'; this.pendingImport = null; this.render();
-      try { await this.o.player.unlock(); const clips = await validateVoicePackage(file, this.o.player.context); if (!this.opened || this.tab !== 'offline') return; this.pendingImport = clips.length ? clips : null; this.notice = clips.length ? '检查完成，请确认是否导入。' : '这个语音包里没有家人录音。'; }
+      try { const clips = await validateVoicePackage(file); if (!this.opened || this.tab !== 'offline') return; this.pendingImport = clips.length ? clips : null; this.notice = clips.length ? '检查完成，请确认是否导入。' : '这个语音包里没有家人录音。'; }
       catch (error) { this.notice = `未导入：${error.message}`; }
       this.render();
     }

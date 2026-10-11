@@ -1,0 +1,108 @@
+/* 绘本厨房：统一视觉，不改变游戏状态和食物数量。 */
+:root{--forest:#35624a;--mint:#e5f0e2;--ink:#68462f;--yellow:#f2c76c;--paper:#fff8ec;--wood:#ddb58c;--line:#d6b89a;color:var(--ink);background:#f6efdf}
+body{background:radial-gradient(ellipse at 50% 0,#fffaf0,transparent 75%),#edf2e5}
+.topbar{height:78px;padding:8px 32px;max-width:1180px}
+.brand{color:#855530;font-size:24px;letter-spacing:2px;text-shadow:0 2px #fff8ec}
+.brand>.icon{padding:5px;background:#f5d78f;border-radius:12px;width:38px;height:38px;box-shadow:0 3px 0 #c49b68}
+.parent-entry{color:#6a775f;background:#fff8ecb3;border:1px solid #d8c6a5;border-radius:22px;min-height:58px}
+.primary,.secondary,.round-button{border:2px solid #bb8d58;box-shadow:inset 0 2px 0 #fff6d5,0 5px 0 #bd8d53,0 8px 14px #70462317}
+.primary{background:linear-gradient(#ffe3a0,#f2c76c 75%,#eeb758);color:#694422;border-radius:36px;min-height:88px;font-weight:750}
+.secondary{background:linear-gradient(#fffcf3,#f6e9d6);color:#745437;border-color:#cfad8d;border-radius:32px;min-height:80px;box-shadow:inset 0 2px #fff,0 4px #c7a787,0 7px 12px #70462314}
+.primary:active,.secondary:active,.round-button:active{transform:translateY(3px);box-shadow:inset 0 2px 4px #89552525,0 2px #bd8d53}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--forest);outline-offset:5px}
+button:disabled{opacity:.68;filter:saturate(.55)}
+.primary.small,.secondary.small{min-height:52px;border-radius:20px;font-size:16px}
+.round-button{background:linear-gradient(#fff6d9,#f1d59b);color:#7e542f;border-radius:50%}
+.home{max-width:1120px;padding:14px 28px 22px;background:#fff8ec;border:2px solid #e0c5a4;border-radius:32px;box-shadow:0 12px 35px #7b68401a}
+.welcome-copy .handwritten{color:#927451;letter-spacing:3px;font-size:14px;margin-bottom:8px}
+.welcome-copy h1{font-size:clamp(30px,4vw,44px);letter-spacing:2px;margin-bottom:6px;color:#35624a}
+.welcome-copy>p:last-child{color:#8d765f;font-size:15px;margin-bottom:8px}
+.home-scene{max-width:900px;height:310px;margin-top:12px;background:url('./assets/kitchen-wall.svg') center center/cover;border-radius:28px;border:2px solid #d3b795;overflow:hidden}
+.shop-window,.shelf,.scene-flower{display:none}
+.home-rabbit{width:235px;left:24%;bottom:15px;transform:rotate(-3deg)}
+.home-bear{width:235px;right:20%;bottom:15px;transform:rotate(3deg)}
+.home-table{width:100%;left:0;height:78px;border-radius:0;background:repeating-linear-gradient(2deg,transparent 0 32px,#ae805923 33px 35px),linear-gradient(#edcba7,#ddb58c);border-bottom:9px solid #c49a73;box-shadow:0 -3px #bc916c}
+.table-cloth{inset:0 28% -4px;background:repeating-linear-gradient(90deg,transparent 0 28px,#e9c17b45 29px 43px),repeating-linear-gradient(0deg,#fff8eb 0 24px,#eed2a04a 25px 38px);border-bottom-color:#d1ad80;border-radius:8px}
+.hero-pot{background:#f6dfb8;border-color:#c29769;border-bottom-color:#b1845c;box-shadow:inset 0 0 0 5px #f8ebd4;bottom:19px;width:220px;height:86px}
+.hero-pot:before,.hero-pot:after{border-color:#b98b5e}
+.home-start{margin-top:20px}.start-button{min-width:270px;font-size:28px;min-height:88px}
+.home-start p{margin:10px 0;color:#8b775f}.home-footer{margin-top:12px;color:#697b5b}
+.kitchen{border:3px solid #c8ad8a;border-radius:28px;box-shadow:0 12px 28px #6d51351c;min-height:0;margin-bottom:20px}
+.awning{height:18px;opacity:.8}.awning span{background:#91ad8a}.awning span:nth-child(even){background:#fff0d5}
+.guest-area{height:218px;padding-top:20px;gap:28px;background:#dcebd9 url('./assets/kitchen-wall.svg') center center/cover}
+.guest-character{width:175px;margin-bottom:-22px;z-index:1}.guest-character svg{height:210px}
+.guest-name{background:#fff2d6;border:1px solid #c9aa82;box-shadow:0 2px #bb9b7440;color:#7b543b;bottom:14px;font-weight:650}
+.order-bubble{border:2px solid #bd9574;background:linear-gradient(135deg,#fffdf5,#fff3e0);border-radius:28px;box-shadow:0 4px 0 #b9936f35;min-width:280px;max-width:435px;padding:13px 22px;z-index:1}
+.order-bubble:before{left:-17px;border-right-color:#bd9574}.order-bubble:after{content:'';position:absolute;left:-12px;top:calc(40% + 2px);border:10px solid transparent;border-right:15px solid #fff9ed;border-left:0}
+.order-number{font-size:68px;color:#805334}.order-foods{gap:2px}.order-foods svg{width:52px;height:50px}.food-name{color:#8a6a4d;font-size:15px}
+.order-label{color:#947354}.repeat-button{background:linear-gradient(#fff9eb,#eedbb7);border-color:#c7a786}
+.kitchen-message{background:#edf3e3;color:#735c45;min-height:42px;font-size:16px;border-top:2px solid #c8b593;padding:10px 16px 8px}
+.worktop{background:repeating-linear-gradient(2deg,transparent 0 42px,#b3865b1c 43px 45px),linear-gradient(#edcca9,#e6bc93);border-top:5px solid #c79b6e;padding:28px 48px 30px;gap:38px;min-height:258px}
+.pot-rim{background:radial-gradient(ellipse at 50% 40%,#f5e3c4,#dec39d);border:8px solid #bc9166;border-bottom:14px solid #a97a50;border-radius:43%;box-shadow:inset 0 0 0 5px #f6dcba,inset 0 9px 15px #a8754930,0 9px 6px #80562d24;min-height:205px}
+.pot-handle{border-color:#b2875c;background:#dfbc91;box-shadow:0 3px #966e4b;border-radius:16px}
+.pot-label{color:#795c42;font-size:13px;letter-spacing:1px;bottom:-24px}
+.food-button{width:88px;height:80px;filter:drop-shadow(0 3px 2px #80512d22);border-radius:28px}
+.food-button.selected{outline:3px solid #bf9147;background:#fff2be;box-shadow:0 0 0 6px #fff8e2}
+.plate-rim{background:radial-gradient(ellipse,#fffcf5 60%,#f5e6d2);border:11px solid #fff5e5;border-radius:49%;box-shadow:0 0 0 2px #cba989,inset 0 0 0 3px #e6c8a7,inset 0 6px 9px #c7a37b1c,0 9px 0 #cda881,0 14px 12px #865b3830;min-height:205px}
+.empty-plate{color:#a88968}.plate-content{gap:5px;max-width:310px}.plated-item .food-button{width:84px;height:76px}
+.game-controls{background:repeating-linear-gradient(2deg,transparent 0 38px,#b3865b12 39px 41px),#e6bd94;padding:18px 96px 26px;gap:20px;min-height:128px}
+.game-controls .secondary{min-height:80px;min-width:172px}.serve-button{min-width:225px}
+.pause-button{width:72px;height:72px;background:#fff6e2;border:2px solid #c49d75;box-shadow:0 4px #bd986e;color:#8d6946;border-radius:50%;right:14px}
+.counted{background:#fff2c1;outline:2px solid #c59141}.count-badge{background:#f2c76c;color:#714821;border:2px solid #fff7e1;box-shadow:0 2px #bd924f;bottom:0;right:0;font-weight:800;width:30px;height:30px}
+.review-mode .count-current{outline:4px solid #dfad4c;background:#fff1b8}.count-current:before{color:#ad7732}
+.plate-total{color:#76532c;font-weight:650;background:#fff8ecd9;border:1px solid #c9a57c;border-radius:20px;left:15%;right:15%;top:-26px;padding:3px 8px}
+.basket-mark{opacity:1;width:52px;background:#e4eddb;border:1px solid #b1c39e;border-radius:15px;padding:3px;box-shadow:0 2px #aab891;position:absolute;top:-24px;left:calc(50% - 26px)}
+.sort-plate{border:7px solid #fff5e5;background:radial-gradient(ellipse,#fffdf5,#f5e6d3);box-shadow:0 0 0 2px #cba989,0 6px #c6a17a;min-height:186px;padding-top:34px}.sort-plate>span{color:#8b6847}.sorted-items{min-height:96px;align-items:center}.can-receive{outline:3px solid #c8a151}
+.pause-overlay{background:#8c89664d;backdrop-filter:blur(5px)}.pause-card{background:linear-gradient(135deg,#fffdf5,#fff1db);border:3px solid #cda77b;box-shadow:0 9px 0 #ad865a30,0 25px 70px #60462b25;border-radius:36px;padding:34px 40px}.pause-card h2{color:#785432}.pause-card p{color:#94775b}
+.enjoy-scene{background:#dcebd9 url('./assets/kitchen-wall.svg') center/cover;height:490px}.enjoy-note{color:#815936;border-color:#c7a684;box-shadow:0 4px #bfa08345}.enjoy-table{background:repeating-linear-gradient(2deg,transparent 0 30px,#b3865b1c 31px 33px),#e6bd94;border-color:#c2996f}.enjoy-plate{background:#fff8ec;border-color:#f9e9d2;box-shadow:0 0 0 2px #cda989,0 6px #bc9570}
+.end-page{background:#e5f0e2 url('./assets/kitchen-wall.svg') center/cover;border:3px solid #c7ab87;border-radius:32px;padding:26px 24px 24px;box-shadow:0 10px 25px #6b513c18;margin-bottom:24px}.end-page h1{font-size:36px}.end-page>p,.end-parent-note{color:#735c45}.closed-sign{background:#fff5df;border-color:#be9972;color:#825e3d}.saved-plate{background:#fff8ec;border-color:#eed6b7;box-shadow:0 0 0 2px #cda989}
+.parent-dialog,.gate-dialog{background:#fff8ec;border:3px solid #c3a17c;border-radius:30px;box-shadow:0 20px 80px #4e3b292e}.parent-header{background:linear-gradient(120deg,#f6e6cd,#e8efdf);border-bottom:2px solid #dfc5a4}.parent-header h2{color:#6e5236}.parent-tabs{background:#f7ebd9;gap:8px;padding:12px 18px}.parent-tabs button{border-radius:18px;color:#7e6245;min-height:48px}.parent-tabs button.active{background:#f2c76c;color:#624326;box-shadow:0 3px #bd9562}.parent-body{padding:24px 28px;color:#6d5942}.parent-body select{background:#fffdf7;border:2px solid #d7b996;border-radius:14px;min-height:48px;color:#6f563e}.script-card,.gentle-note,.summary,.offline-card{background:#f7ecd9;border-color:#dec4a3;border-radius:20px}.parent-footer{background:#edf1e3;color:#637650}.parent-notice{color:#35624a}.audio-recover{border-color:#b98b54;background:#fff0c6;color:#6b4b2d;min-height:72px}
+@media(orientation:portrait){.worktop,.sort-mode .worktop{grid-template-columns:1fr;padding:26px 36px 30px;gap:32px}.pot-zone{max-width:365px}.plate-zone{max-width:450px;width:100%;margin:auto}.sorting-plates{max-width:540px;margin:12px auto 0}.game-controls{padding-left:18px;padding-right:90px}.home-rabbit{left:17%}.home-bear{right:13%}}
+@media(max-width:540px){.topbar{padding:8px 14px;height:76px}.brand{font-size:18px;letter-spacing:0;gap:6px}.brand>.icon{width:30px;height:30px}.home{margin:0 10px;padding:16px 12px;border-radius:24px}.welcome-copy h1{font-size:30px}.welcome-copy>p:last-child{font-size:13px}.home-scene{height:260px;background-position:45% center}.home-rabbit{width:165px;left:0;bottom:14px}.home-bear{width:166px;right:0;bottom:14px}.home-table{height:66px}.hero-pot{width:177px;height:75px}.home-start{margin-top:20px}.home-footer{font-size:11px;flex-direction:column;gap:7px}.kitchen{margin:0 10px 20px;border-width:2px;border-radius:23px}.guest-area{height:190px;gap:8px;padding:20px 10px 0;background-position:50% center}.guest-character{width:94px;margin-bottom:-16px}.guest-character svg{height:150px}.guest-name{font-size:11px;padding:3px 9px;bottom:8px}.order-bubble{min-width:0;width:174px;padding:10px 12px;min-height:112px;border-radius:22px}.order-number{font-size:48px}.order-request{gap:5px;min-height:58px}.order-foods{max-width:98px}.order-foods svg{width:31px;height:31px}.order-foods.simple svg{width:60px;height:48px}.order-bubble>p{font-size:17px}.repeat-button{width:72px;height:72px;margin-left:0;position:absolute;right:12px;top:113px;z-index:2}.repeat-button .icon{width:28px}.kitchen-message{font-size:14px;padding:9px 12px}.worktop,.sort-mode .worktop{padding:25px 23px 30px;gap:32px;grid-template-columns:1fr}.pot-rim{padding:10px 5px;min-height:185px}.pot-items{min-height:135px}.food-button{width:80px;height:76px}.plate-rim{padding:13px 6px;min-height:195px}.plate-content{max-width:270px}.game-controls{padding:16px 12px 20px;gap:12px;flex-wrap:wrap}.game-controls .primary,.game-controls .secondary{font-size:20px;min-width:0;min-height:80px;padding:14px 20px}.game-controls .pause-button{position:static;width:72px;height:72px}.serve-button{flex:1}.sorting-plates{gap:10px}.sort-plate{min-width:0;width:calc((100% - 20px)/3);min-height:184px;border-width:5px}.sorted-items{flex-direction:column;gap:4px}.sorted-items svg{width:52px;height:48px}.sort-plate>span{font-size:12px}.review-mode .game-controls{padding:16px 12px 20px;gap:12px}.review-mode .game-controls button:not(.pause-button){min-width:0;min-height:80px;padding:14px 16px}.pause-card{max-width:calc(100% - 24px);padding:28px 20px}.pause-card h2{font-size:25px}.parent-tabs{padding:10px;gap:4px}.parent-tabs button{padding:10px;font-size:14px}.parent-body{padding:20px 16px}.enjoy-scene{height:410px}.enjoy-note{left:145px;top:5px;font-size:14px;padding:8px 10px}.enjoy-animal{width:210px}.end-page{margin:0 10px 20px;padding:22px 14px}.end-page h1{font-size:30px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important}.primary,.secondary,.round-button,.food-button{transition:none}}
+/* 小屏保持短标签横向阅读，优先换行整个按钮而非拆开汉字。 */
+@media(max-width:540px){.game-controls .primary,.game-controls .secondary{font-size:18px;padding:12px 10px;gap:8px;white-space:nowrap}.game-controls .primary .icon,.game-controls .secondary .icon{width:28px;height:28px}.review-mode .game-controls button:not(.pause-button){padding:12px 10px}.game-controls .serve-button{min-width:120px}}
+
+/* 第二轮调整：薄轮廓、低浮起按钮；导航与操作按钮使用不同状态表达。 */
+.primary,.secondary,.round-button,.pause-button{border-width:1.5px;box-shadow:0 2px 4px #72553316,inset 0 1px 0 #ffffff80;transition:background-color .15s,box-shadow .15s,transform .15s}
+.primary{background:linear-gradient(180deg,#f8d990,#f2c76c);border-color:#d3ac63;color:#624b2d;border-radius:26px;font-weight:650}
+.secondary{background:#fffbf3;border-color:#d8c7ae;color:#725d44;border-radius:26px;box-shadow:0 2px 4px #7255330d}
+.primary.small,.secondary.small{border-radius:15px;font-weight:600}
+.round-button,.pause-button,.repeat-button{background:#fff8e9;border-color:#d5bd98;color:#806a4a;box-shadow:0 2px 4px #72553312,inset 0 1px #fff}
+.primary:active,.secondary:active,.round-button:active,.pause-button:active{transform:translateY(1px);box-shadow:inset 0 1px 3px #72553318}
+.primary:active{background:#edc16b}.secondary:active,.round-button:active,.pause-button:active{background:#f5ecd9}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #548061;outline-offset:3px}
+button:disabled{opacity:.58;filter:saturate(.6);box-shadow:none}
+.brand>.icon{box-shadow:none;background:#f5dda1;border-radius:10px}.brand{text-shadow:none;letter-spacing:1px}
+.parent-entry{border-color:#ded3bc;background:#fffcf2;border-radius:18px}
+.home,.kitchen,.end-page{border-color:#d9c4a8;box-shadow:0 6px 20px #6d51350d;border-width:2px}
+.awning{opacity:.55}.order-bubble{border-color:#ceb293;box-shadow:0 2px 5px #7255330d;background:#fffaf0}
+.order-bubble:before{border-right-color:#ceb293}.order-bubble:after{border-right-color:#fffaf0}
+.guest-name{box-shadow:none;background:#fff5df;border-color:#d9c4a4}
+.kitchen-message{border-top:1px solid #cfdbc5;background:#eef3e7;color:#71634e}
+.worktop{border-top-width:3px;border-top-color:#d0ad83;background:repeating-linear-gradient(2deg,transparent 0 42px,#b3865b0c 43px 45px),linear-gradient(#edcead,#e7c5a1)}
+.game-controls{background:repeating-linear-gradient(2deg,transparent 0 38px,#b3865b08 39px 41px),#e7c5a1}
+.pot-rim{border-color:#c3a078;border-bottom-color:#b18c63;box-shadow:inset 0 0 0 4px #f6e4c8,inset 0 5px 10px #a8754918,0 3px 7px #80562d18}
+.pot-handle{box-shadow:none;border-color:#b8936b}.plate-rim{box-shadow:0 0 0 1px #d1b89a,inset 0 0 0 2px #ead5bb,0 3px 7px #865b381a}
+.sort-plate{box-shadow:0 0 0 1px #d1b89a,0 3px 6px #865b3814}.basket-mark{box-shadow:none;background:#edf3e5;border-color:#c1d0b3}
+.food-button.selected{outline:2px solid #789268;outline-offset:1px;background:#eff4df;box-shadow:none}
+.can-receive{outline:2px dashed #92a680;outline-offset:3px}
+.counted{outline:2px solid #caa55e;background:#fff1c9}.review-mode .count-current{outline:3px solid #caa55e;background:#fff1c9}
+.count-badge{box-shadow:none;border-width:1px}.plate-total{border-color:#decaac;background:#fffbf2}
+.pause-card{background:#fffaf0;border:1.5px solid #d7c4a8;box-shadow:0 12px 40px #60462b20;border-radius:28px}
+.enjoy-note,.enjoy-plate,.saved-plate{box-shadow:0 2px 5px #865b3814}
+.parent-dialog,.gate-dialog{border:1px solid #dfd3bf;border-radius:24px;box-shadow:0 16px 56px #40392426}
+.parent-dialog:focus,.gate-dialog:focus{outline:none}
+.parent-header{background:#fffaf0;border-bottom:1px solid #e9e0ce}.parent-header h2{color:#5d6245}
+.parent-header .round-button{background:#f4efe2;border-color:#e2d7c4;box-shadow:none;color:#84765e}
+.parent-tabs{margin:18px 28px 0;padding:5px;gap:5px;align-self:flex-start;background:#f0eddf;border:1px solid #e5decb;border-radius:15px;flex-wrap:wrap}
+.parent-tabs button{padding:10px 18px;min-height:44px;border:1px solid transparent;border-radius:11px;box-shadow:none;background:transparent;color:#85785f;font-weight:500;transform:none;white-space:nowrap}
+.parent-tabs button.active{background:#fffcf4;border:1px solid #d7dcc4;border-bottom-color:#d7dcc4;color:#426246;font-weight:650;box-shadow:0 1px 3px #5763480d}
+.parent-tabs button:active{transform:none;background:#e7e9da;box-shadow:none}
+.parent-body{padding-top:22px}.parent-body select{border:1px solid #d9cbb5;background:#fffdf8;border-radius:12px;color:#685d48;min-height:48px}
+.script-card,.gentle-note,.summary,.offline-card{background:#f5f2e7;border-color:#e5dcc7;border-radius:16px}
+.parent-footer{background:#f1f3e8;border-top:1px solid #e4e8d8;color:#748064}
+.parent-actions{gap:14px}.text-button{color:#587351;text-decoration-color:#b1bda5;text-underline-offset:4px}
+@media(hover:hover){.primary:hover:not(:disabled){background:linear-gradient(#f9df9e,#f4cc78)}.secondary:hover:not(:disabled),.round-button:hover:not(:disabled),.pause-button:hover:not(:disabled){background:#f8f0df}.parent-tabs button:hover:not(.active){background:#e7e9da;color:#56694a}}
+@media(max-width:540px){.parent-tabs{margin:14px 16px 0;padding:4px;gap:3px}.parent-tabs button{padding:10px 12px;font-size:14px}.home,.kitchen,.end-page{border-radius:22px}.primary,.secondary{border-radius:24px}}
+@media(prefers-reduced-motion:reduce){.primary,.secondary,.round-button,.pause-button,.food-button{transition:none}}

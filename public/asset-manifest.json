@@ -1,5 +1,5 @@
 {
-  "version": "2e601415a290021c",
+  "version": "7ab0c033ef261689",
   "assets": [
     "./assets/audio/bear/addOne.mp3",
     "./assets/audio/bear/addSome.mp3",
@@ -217,6 +217,7 @@
     "./assets/icon-192.png",
     "./assets/icon-512.png",
     "./assets/icon.svg",
+    "./assets/kitchen-wall.svg",
     "./index.html",
     "./js/app.js",
     "./js/art.js",
@@ -227,7 +228,8 @@
     "./js/parents.js",
     "./js/storage.js",
     "./manifest.webmanifest",
+    "./storybook.css",
     "./styles.css"
   ],
-  "bytes": 2752575
+  "bytes": 2773512
 }

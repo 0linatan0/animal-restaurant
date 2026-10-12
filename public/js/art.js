@@ -1,5 +1,14 @@
 export const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-const svg = (body, view = '0 0 120 100', cls = '') => `<svg class="${cls}" viewBox="${view}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+let illustrationId = 0;
+const svg = (body, view = '0 0 120 100', cls = '') => {
+  const prefix = 'illustration-' + illustrationId++;
+  const colors = [...new Set([...body.matchAll(/fill="(#[A-Fa-f0-9]{6})"/g)].map(m => m[1]))];
+  const tint = (c, target, amount) => '#' + [1, 3, 5].map(pos => Math.round(parseInt(c.slice(pos, pos + 2), 16) * (1 - amount) + target * amount).toString(16).padStart(2, '0')).join('');
+  const defs = colors.map((c, i) => '<linearGradient id="' + prefix + '-' + i + '" x1="0" y1="0" x2="30%" y2="100%"><stop stop-color="' + tint(c, 255, .18) + '"/><stop offset=".55" stop-color="' + c + '"/><stop offset="1" stop-color="' + tint(c, 80, .09) + '"/></linearGradient>').join('');
+  // 每个 SVG 的渐变独立命名，避免重复食物共用错误的引用。
+  body = body.replace(/fill="(#[A-Fa-f0-9]{6})"/g, (_, c) => 'fill="url(#' + prefix + '-' + colors.indexOf(c) + ')"');
+  return '<svg class="' + cls + '" viewBox="' + view + '" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>' + defs + '</defs>' + body + '</svg>';
+};
 export function foodArt(food, cls = '') {
   const common = 'stroke="#925C35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"';
   if (food === 'broccoli') return svg(`<ellipse cx="60" cy="89" rx="31" ry="5" fill="#DDBD8A" opacity=".2"/><path d="M48 49 L43 88 Q60 96 76 87 L70 49 L59 63Z" fill="#B8CC7C" stroke="#628451" stroke-width="3"/><path d="M59 85 L59 54 M58 70 L39 51 M62 65 L79 49" fill="none" stroke="#789850" stroke-width="3" stroke-linecap="round"/><path d="M28 62 Q12 60 15 45 Q10 30 28 26 Q31 12 45 18 Q57 4 71 17 Q89 12 94 28 Q111 29 106 46 Q110 61 93 65 Q80 74 69 63 Q54 73 45 62 Q35 70 28 62Z" fill="#699553" stroke="#456E42" stroke-width="3"/><path d="M27 43 Q29 33 39 34 M49 28 Q56 22 64 28 M78 35 Q89 31 94 42 M45 51 Q53 42 62 49 M77 54 Q82 47 88 51" fill="none" stroke="#9DBB73" stroke-width="4" stroke-linecap="round"/>`, undefined, cls);
@@ -33,22 +42,27 @@ export function foodArt(food, cls = '') {
     </g>`, undefined, cls);
 }
 export function animalArt(role = 'rabbit', cls = '', waving = false) {
-  const bear = role === 'bear';
-  const fur = bear ? '#B77C50' : '#FFF8E9', edge = bear ? '#825433' : '#C9B797';
-  return svg(`<ellipse cx="130" cy="278" rx="86" ry="12" fill="#567A52" opacity=".10"/>
-    ${bear ? `<circle cx="58" cy="85" r="29" fill="${fur}" stroke="${edge}" stroke-width="4"/><circle cx="58" cy="86" r="16" fill="#E4B181"/><circle cx="201" cy="85" r="29" fill="${fur}" stroke="${edge}" stroke-width="4"/><circle cx="201" cy="86" r="16" fill="#E4B181"/>` : `<path d="M76 103 Q43 18 75 12 Q104 9 111 99" fill="${fur}" stroke="${edge}" stroke-width="4"/><path d="M150 102 Q158 11 189 19 Q218 30 181 112" fill="${fur}" stroke="${edge}" stroke-width="4"/><path d="M79 38 Q78 65 91 88 M178 43 L166 89" stroke="#ECC1AD" stroke-width="13" stroke-linecap="round"/>`}
-    <path d="M75 190 Q46 220 47 270 Q130 294 211 270 Q210 214 183 190Z" fill="${fur}" stroke="${edge}" stroke-width="4"/>
-    <path d="M79 193 L97 209 L160 209 L180 192 L188 274 Q130 288 72 274Z" fill="${bear ? '#738E6A' : '#E9B952'}"/>
-    <path d="M103 239 Q130 252 157 239 L155 260 Q130 270 105 260Z" fill="${bear ? '#9EB28B' : '#F5D881'}"/>
-    <path d="M55 230 Q22 ${waving ? '157 24 149' : '219 33 236'} Q${waving ? '39 136' : '30 257'} 65 255" fill="${fur}" stroke="${edge}" stroke-width="4"/>
-    <path class="animal-arm" d="M196 230 Q225 209 230 234 Q235 253 201 255" fill="${fur}" stroke="${edge}" stroke-width="4"/>
-    <path d="M46 126 Q49 68 128 70 Q207 70 215 129 Q224 196 132 207 Q40 201 46 126Z" fill="${fur}" stroke="${edge}" stroke-width="4"/>
-    ${bear ? '<ellipse cx="131" cy="160" rx="37" ry="28" fill="#E7BC8D"/>' : ''}
-    <ellipse cx="73" cy="154" rx="15" ry="9" fill="#EAA68B" opacity=".7"/><ellipse cx="187" cy="154" rx="15" ry="9" fill="#EAA68B" opacity=".7"/>
-    <ellipse cx="96" cy="133" rx="5" ry="7" fill="#574533"/><ellipse cx="165" cy="133" rx="5" ry="7" fill="#574533"/>
-    <path d="M124 150 Q131 145 138 150 Q136 159 131 159 Q125 157 124 150Z" fill="#72503D"/>
-    <path class="animal-mouth" d="M131 158 L131 165 M119 165 Q125 175 131 165 Q137 175 143 165" fill="none" stroke="#72503D" stroke-width="3" stroke-linecap="round"/>
-    ${!bear ? '<path d="M103 74 Q97 53 119 47 Q128 31 143 47 Q168 45 162 73Z" fill="#FFFCF3" stroke="#C9B797" stroke-width="3"/><path d="M105 72 L162 72" stroke="#C9B797" stroke-width="3"/>' : ''}`, '0 0 260 300', cls);
+  const bear = role === 'bear', fur = bear ? '#BA855E' : '#FFF7E7', edge = bear ? '#986545' : '#BD9072';
+  const apron = bear ? '#A6CDB5' : '#F4CC79';
+  return svg(`<ellipse cx="130" cy="285" rx="76" ry="8" fill="#795333" opacity=".12"/>
+    <g stroke="${edge}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    ${bear ? '<circle cx="66" cy="83" r="28" fill="#BA855E"/><circle cx="194" cy="83" r="28" fill="#BA855E"/><circle cx="66" cy="83" r="16" fill="#DBB28D" stroke="none"/><circle cx="194" cy="83" r="16" fill="#DBB28D" stroke="none"/>' : '<path d="M74 105Q31 12 68 9Q98 8 110 100" fill="#FFF7E7"/><path d="M148 99Q158 5 188 12Q226 28 182 109" fill="#FFF7E7"/><path d="M68 32Q65 52 88 87M186 35Q188 53 167 88" fill="none" stroke="#F3B79F" stroke-width="16"/>'}
+    <path d="M89 254L83 279Q98 290 113 280L117 261M148 260L151 281Q167 289 179 279L174 253" fill="${fur}"/>
+    <path d="M80 192Q52 223 61 268Q130 292 199 268Q208 223 180 192Z" fill="${bear ? '#F9EDD7' : '#FFF8E9'}"/>
+    <path d="M64 211Q44 211 37 ${waving ? '170Q33 148 49 146Q66 148 62 176L83 220' : '233Q32 252 48 258Q64 262 78 243'}" fill="${fur}"/>
+    <path class="animal-arm" d="M185 215Q214 216 222 237Q225 255 210 258Q197 258 182 242" fill="${fur}"/>
+    <path d="M83 192L99 192L101 217H160L162 192H177L190 268Q130 288 71 268Z" fill="${apron}"/>
+    <path d="M106 240Q130 245 154 240L152 259Q130 274 108 259Z" fill="${bear ? '#BDDEC8' : '#F9DE9C'}"/>
+    <path d="M45 129Q43 66 128 66Q212 66 217 127Q232 203 131 212Q30 204 45 129Z" fill="${fur}"/>
+    </g>
+    <path d="M60 127Q64 84 107 81" fill="none" stroke="${bear ? '#D4A682' : '#FFFEF7'}" stroke-width="9" stroke-linecap="round" opacity=".65"/>
+    ${bear ? '<ellipse cx="131" cy="166" rx="34" ry="27" fill="#EBC59C"/>' : ''}
+    <ellipse cx="74" cy="164" rx="15" ry="8" fill="#F1B098" opacity=".85"/><ellipse cx="186" cy="164" rx="15" ry="8" fill="#F1B098" opacity=".85"/>
+    <ellipse cx="97" cy="144" rx="5.5" ry="7" fill="#86583C"/><ellipse cx="165" cy="144" rx="5.5" ry="7" fill="#86583C"/>
+    <circle cx="95" cy="142" r="1.5" fill="#FFF8EC"/><circle cx="163" cy="142" r="1.5" fill="#FFF8EC"/>
+    <path d="M124 156Q131 151 138 156Q137 163 131 164Q125 163 124 156" fill="${bear ? '#87583B' : '#DE9B7D'}"/>
+    <path class="animal-mouth" d="M131 164V170M119 169Q124 177 131 170Q138 177 143 169" fill="none" stroke="#986545" stroke-width="2.8" stroke-linecap="round"/>
+    <path d="M112 196Q132 201 153 196" fill="none" stroke="${bear ? '#C99872' : '#E7C9A6'}" stroke-width="3" opacity=".5"/>`, '0 0 260 300', cls);
 }
 export function icon(name, cls = '') {
   const paths = {

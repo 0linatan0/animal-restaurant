@@ -1,6 +1,13 @@
 import { LINES, ARCHIVED_LINE_IDS, ROLES, voiceKey, defaultAudio } from './catalog.js';
 import { getClip, listClips, writeClips } from './storage.js';
 
+const blobDataUrl = blob => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.onload = () => typeof reader.result === 'string' ? resolve(reader.result) : reject(new Error('录音未能读取，请重新导入语音包。'));
+  reader.onerror = () => reject(reader.error || new Error('录音未能读取，请重新导入语音包。'));
+  reader.readAsDataURL(blob);
+});
+
 export function pcmWav(samples, sampleRate = 22050) {
   const buffer = new ArrayBuffer(44 + samples.length * 2), v = new DataView(buffer);
   const text = (offset, s) => { for (let i = 0; i < s.length; i++) v.setUint8(offset + i, s.charCodeAt(i)); };
@@ -39,8 +46,10 @@ export class VoicePlayer {
     let custom;
     try { custom = await getClip(voiceKey(role, line)); } catch {}
     if (epoch !== this.epoch) return false;
-    const url = custom ? URL.createObjectURL(custom.blob) : defaultAudio(role, line);
-    try { return await this.url(url, epoch); } finally { if (custom) URL.revokeObjectURL(url); }
+    // iPad WebKit 可能提前终止较大的 Blob URL 音频；data URL 与离线试听页使用同一路径。
+    const url = custom ? await blobDataUrl(custom.blob) : defaultAudio(role, line);
+    if (epoch !== this.epoch) return false;
+    return this.url(url, epoch);
   }
   url(url, epoch = this.epoch) {
     return new Promise(resolve => {
@@ -59,7 +68,12 @@ export class VoicePlayer {
     const run = async () => { for (const line of lines) { if (!LINES[line] || epoch !== this.epoch || !await this.one(role, line, epoch)) return false; } return true; };
     this.tail = this.tail.then(run, run); return this.tail;
   }
-  async preview(blob) { this.stop(); await this.unlock(); const url = URL.createObjectURL(blob); try { return await this.url(url); } finally { URL.revokeObjectURL(url); } }
+  async preview(blob) {
+    this.stop();
+    // 同步发起解锁，再等待录音转成 data URL，避免文件读取消耗当前点击的播放授权。
+    const [url] = await Promise.all([blobDataUrl(blob), this.unlock()]);
+    return this.url(url);
+  }
   pop() {
     if (this.active || !this.context || this.context.state !== 'running') return;
     const o = this.context.createOscillator(), g = this.context.createGain(), now = this.context.currentTime;
@@ -106,7 +120,7 @@ export class ClipRecorder {
   stop() { clearTimeout(this.timer); if (this.recorder?.state === 'recording') this.recorder.stop(); this.stream?.getTracks().forEach(t => t.stop()); }
   cancel() { this.cancelled = true; this.token++; this.stop(); }
 }
-const blobBase64 = blob => new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(r.result.split(',')[1]); r.onerror = reject; r.readAsDataURL(blob); });
+const blobBase64 = async blob => (await blobDataUrl(blob)).split(',')[1];
 export async function exportVoices() {
   const clips = await listClips();
   const entries = await Promise.all(clips.map(async c => ({ key: c.key, mime: 'audio/wav', data: await blobBase64(c.blob) })));

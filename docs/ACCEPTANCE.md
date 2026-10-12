@@ -70,6 +70,13 @@
 - 浏览器回归模拟 IndexedDB 拒绝任何含 Blob 的写入，新实现成功保存全部 106 句小兔子录音，并保留、解码旧格式的小熊录音；本机真实 106 句复刻语音包也通过完整校验。
 - `npm test` 40 项、`TEST_MIC=1 npm run test:browser` 15 组、`npm run test:serving` 7 组和部署回归全部通过。构建版本 `2e601415a290021c`，发布包 229 个文件、SHA-256 为 `451a2145ae3ff595428fe2d8907ca022e6744b3d5bef7e1904a0e0562bd5fe0f`；仍需在反馈问题的 iPad 上复验实际导入。
 
+## 2026-10-12 iPad 导入录音尾部截断分析与修复
+
+- 用户反馈导入后部分复刻录音尾部像被截断，而 `review-rabbit.html` 播放完整。以“我想吃五朵西蓝花”为例，缓存 WAV、试听页 data URL 和语音包 JSON 的 143,752 字节完全一致，时长均为 2.994 秒，SHA-256 均为 `6b4d54fdbed9e72dc6d7ca955f1c8d8a85b5a5eee12b20e309b5bf2ffe013a8f`。
+- 全包 106 句逐一比较，三处字节全部一致，因此语音生成、打包和导入文件没有丢失尾部。106 句中有 101 句超过 65,536 字节；旧播放路径把导入录音转成 Blob URL，与 WebKit 已记录的“大 Blob URL 音频提前停止”问题一致，而试听页使用 data URL。
+- 游戏播放和家长试听改用带 `audio/wav` MIME 的 data URL，内置静态音频路径保持不变。浏览器回归模拟超过 65,536 字节的 Blob URL 无法完整播放，验证两处导入录音播放均不再创建该 URL。
+- 真实 106 句语音包回归、`npm test` 40 项、`TEST_MIC=1 npm run test:browser` 15 组、`npm run test:serving` 7 组和部署回归全部通过。构建版本 `343b0ab0449d8bc1`；尚未发布，发布后需在反馈问题的 iPad 上重新导入并复验完整播放。
+
 ## 真机验收清单（待完成）
 
 在至少一台iPad及一台Android平板上分别检查：

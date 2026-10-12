@@ -97,6 +97,30 @@ try {
     };
   });
   assert.deepEqual(summary, { rabbit: 106, bear: 1, rabbitUsesBytes: true, legacyBearUsesBlob: true });
+  // iPad WebKit 曾在较大的 Blob URL 音频上提前停止；导入录音应使用与本地试听页一致的 data URL。
+  await page.evaluate(async () => {
+    const storage = await import('/js/storage.js');
+    const { VoicePlayer } = await import('/js/audio.js');
+    const key = 'rabbit/blob-playback-regression';
+    const largeWav = new Blob([new Uint8Array(65537)], { type: 'audio/wav' });
+    await storage.writeClips([{ key, blob: largeWav, updatedAt: new Date().toISOString() }]);
+    const originalCreateObjectURL = URL.createObjectURL.bind(URL);
+    URL.createObjectURL = blob => {
+      if (blob instanceof Blob && blob.size > 65536) throw new Error('模拟 iPad WebKit 的 Blob URL 音频提前终止');
+      return originalCreateObjectURL(blob);
+    };
+    try {
+      const player = new VoicePlayer();
+      player.url = async source => source.startsWith('data:audio/wav;base64,');
+      const gamePlayback = await player.one('rabbit', 'blob-playback-regression', player.epoch);
+      player.unlock = async () => {};
+      const parentPreview = await player.preview(largeWav);
+      if (!gamePlayback || !parentPreview) throw new Error('导入录音没有使用可移植的 data URL 播放');
+    } finally {
+      URL.createObjectURL = originalCreateObjectURL;
+      await storage.writeClips([], [key]);
+    }
+  });
   const broken = JSON.parse(rabbit); broken.clips[1].data = Buffer.from('bad wav').toString('base64');
   await page.locator('#voice-import').setInputFiles({ name: 'broken-test.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(broken)) });
   await page.getByText('未导入：语音包中的录音不是可移植的 WAV 格式。', { exact: true }).waitFor();
@@ -110,5 +134,5 @@ try {
   await reviewPage.setContent(reviewHtml('rabbit', lines, audio));
   assert.equal(await reviewPage.locator('audio').count(), 106);
   assert.deepEqual(errors, []);
-  console.log('PASS 全量包浏览器解码、iPad Blob 存储限制、旧录音兼容、确认前不写入、导入小兔子保留小熊、损坏包保留原录音、离线读取及试听页。测试音为合成波形，不是家人声音。');
+  console.log('PASS 全量包浏览器解码、iPad Blob 存储及播放限制、旧录音兼容、确认前不写入、导入小兔子保留小熊、损坏包保留原录音、离线读取及试听页。测试音为合成波形，不是家人声音。');
 } finally { await browser?.close(); server.kill(); }

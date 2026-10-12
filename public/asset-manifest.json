@@ -1,5 +1,5 @@
 {
-  "version": "7ab0c033ef261689",
+  "version": "343b0ab0449d8bc1",
   "assets": [
     "./assets/audio/bear/addOne.mp3",
     "./assets/audio/bear/addSome.mp3",
@@ -231,5 +231,5 @@
     "./storybook.css",
     "./styles.css"
   ],
-  "bytes": 2773512
+  "bytes": 2773979
 }
